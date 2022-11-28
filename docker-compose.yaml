@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+   nginx:
+      image: nginx:1.21
+      container_name: nginx
+      ports:
+         - "80:80"
+      volumes:
+         - ./src:/var/www/php
+         - ./docker/nginx/conf.d:/etc/nginx/conf.d
+         - ./docker/nginx/logs/error.log:/var/log/nginx/error.log
+         - ./docker/nginx/logs/access.log:/var/log/nginx/access.log
+      depends_on:
+         - php
+      networks:
+         - app-network
+   php:
+      build:
+         context: docker
+         dockerfile: PHP.dockerfile
+      working_dir: /var/www/php
+      container_name: php
+      environment:
+         - DB_SERVER=${DB_SERVER}
+         - DB_USER=${DB_ROOT_USER}
+         - DB_PASSWORD=${DB_ROOT_PASSWORD}
+      volumes:
+         - ./src:/var/www/php
+      depends_on:
+         mysql:
+            condition: service_healthy
+      networks:
+         - app-network
+   mysql:
+      image: mariadb:latest
+      container_name: mysql
+      environment:
+         MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      volumes:
+         - mysqldata:/var/lib/mysql
+      ports:
+         - 3306:3306
+      healthcheck:
+         test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+         interval: 5s
+         retries: 10
+      networks:
+         - app-network
+   phpmyadmin:
+      image: phpmyadmin/phpmyadmin:5
+      container_name: phpmyadmin
+      ports:
+         - 8080:80
+      environment:
+         PMA_HOST: mysql
+      depends_on:
+         mysql:
+            condition: service_healthy
+      networks:
+         - app-network
+networks:
+   app-network:
+      driver: bridge
+volumes:
+   mysqldata:
+      driver: local
