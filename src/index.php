@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "header.php" ?>
+  <?php include "head.php" ?>
   <link href="styles/login.css" rel="stylesheet">
   <title>Login</title>
 </head>
