@@ -8,8 +8,6 @@ services:
       volumes:
          - ./src:/var/www/php
          - ./docker/nginx/conf.d:/etc/nginx/conf.d
-         - ./docker/nginx/logs/error.log:/var/log/nginx/error.log
-         - ./docker/nginx/logs/access.log:/var/log/nginx/access.log
       depends_on:
          - php
       networks:
