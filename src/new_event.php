@@ -11,14 +11,12 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <div class="py-5 text-center">
-        <div class="mb-4 d-flex justify-content-center align-items-center">
-          <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
-          <h2>emorskos</h2>
-        </div>
-        <h2>Create New Event</h2>
+    <header class="py-5 text-center">
+      <div class="mb-4 d-flex justify-content-center align-items-center">
+        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
+        <h2>emorskos</h2>
       </div>
+      <h2>Create New Event</h2>
     </header>
     <main>
     	<div class="col-md-7 col-lg-8">
