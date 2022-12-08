@@ -60,7 +60,7 @@
                 Please select a valid category
               </div>
             </div>
-        </div>
+          </div>
 
           <hr class="my-4">
           <h4 class="mb-3">Claims</h4>
@@ -77,15 +77,12 @@
           <hr class="my-4">
           <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
         </form>
-      </div>
-    </div>
-  </div>
-     
-  </main>
+      </div> 
+    </main>
 
-  <footer class="py-3 mt-3 d-flex justify-content-end shadow border-top">
-    <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-  </footer>
-</div>
+    <footer class="py-3 mt-3 d-flex justify-content-end shadow border-top">
+      <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+    </footer>
+  </div>
 </body>
 </html>
