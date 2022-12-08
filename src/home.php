@@ -8,7 +8,7 @@
   <header class="py-4 shadow-sm">
 
   </header>
-  <main>      
+  <main>
     <div class="container">
       <h1 class="mt-4 mb-4">Your Events</h1>
       <div class="accordion" id="accordionExample">
