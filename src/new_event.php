@@ -22,7 +22,7 @@
     </header>
     <main>
     	<div class="col-md-7 col-lg-8">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" novalidate method="POST" action="new_event.php">
           <h4 class="mb-3">Event Details</h4>
           <div class="row g-3">
             <div class="col-sm-6">
@@ -43,7 +43,7 @@
 
             <div class="col-12">
               <label for="eventDesc" class="form-label">Details</label>
-              <input type="textarea" class="form-control" id="eventDesc">
+              <textarea class="form-control" id="eventDesc" rows="5"> </textarea>
               <div class="invalid-feedback">
               	Please provide more details regarding the event.
               </div>
@@ -85,13 +85,8 @@
      
   </main>
 
-  <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2017–2022 Company Name</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
+  <footer class="py-3 mt-3 d-flex justify-content-end shadow border-top">
+    <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
   </footer>
 </div>
 </body>
