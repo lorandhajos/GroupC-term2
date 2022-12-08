@@ -7,9 +7,8 @@
 <body>
   <main>    
     <header class="py-4 shadow-sm">
-
     </header>
-
+    
     <div class="container">
       <h1 class="mt-4 mb-4">Your Events</h1>
       <div class="accordion" id="accordionExample">
@@ -75,7 +74,6 @@
             <strong>This is the third item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </div>
         </div>
-      </div>
       </div>
     </div>
 
