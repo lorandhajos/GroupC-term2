@@ -1,0 +1,98 @@
+<?php
+	session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<?php include "head.php" ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="py-5 text-center">
+        <div class="mb-4 d-flex justify-content-center align-items-center">
+          <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
+          <h2>emorskos</h2>
+        </div>
+        <h2>Create New Event</h2>
+      </div>
+    </header>
+    <main>
+    	<div class="col-md-7 col-lg-8">
+        <form class="needs-validation" novalidate>
+          <h4 class="mb-3">Event Details</h4>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="eventTitle" class="form-label">Event Title</label>
+              <input type="text" class="form-control" id="eventTitle" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Event title is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="eventDate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="eventDate" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Date is required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="eventDesc" class="form-label">Details</label>
+              <input type="textarea" class="form-control" id="eventDesc">
+              <div class="invalid-feedback">
+              	Please provide more details regarding the event.
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <label for="eventCategory" class="form-label">Event Category</label>
+              <select class="form-select" id="eventCategory" required>
+                <option value="">Not Specified</option>
+                <option>Sports</option>
+                <option>Politics</option>
+                <option>Disasters</option>
+                <option>Health</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid category
+              </div>
+            </div>
+        </div>
+
+          <hr class="my-4">
+          <h4 class="mb-3">Claims</h4>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="reqJournalists">
+            <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="reqPhotographers">
+            <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
+          </div>
+
+          <hr class="my-4">
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
+        </form>
+      </div>
+    </div>
+  </div>
+     
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017–2022 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+</body>
+</html>
