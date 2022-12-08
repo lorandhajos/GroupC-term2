@@ -11,52 +11,75 @@ Examples for camelCase:
 Indentation: 2 spaces<br>
 Charset: UTF-8
 
-Make sure to leave an empty new line at the end of every page!
+Don't comment out code, remove it if you are not using it.
 
-# HTML & PHP
+Make sure to leave an empty new line at the end of every page!
 
 ## HTML
 
-### Rules
-Make sure that you follow the rules and add all required attributes 
-for example:
+* Make sure that you follow the rules and add all required attributes:
 ```<img src="" alt="">```
-
-### Validate your file befor pushing
 
 * Use the following validator to validate your HTML: https://validator.w3.org/#validate_by_input
 
-* Use the following validator to validate your CSS:  https://jigsaw.w3.org/css-validator/#validate_by_input
-
-### Comments in HTML code
-
-Stick to the following scheme for the sections
+Use this scheme to leave comments in HTML files
 
 ``` HTML
-<main>
-   <!-- heroBanner --> 
-   <section class="heroBanner">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <?php include "head.php" ?>
+  <link href="styles/login.css" rel="stylesheet">
+  <title>Login</title>
+</head>
+<body class="text-center">
+   <main>
+   </main>
+</body>
+</html>
+```
 
-   </section>
-   <!-- findUs -->
-   <section class="findUs">
+### Example
+``` HTML
+<main>
+  <!-- heroBanner --> 
+  <section class="heroBanner">
+
+  </section>
+  <!-- findUs -->
+  <section class="findUs">
       
-   </section>
-   <p>TESTI TEST</p>
+  </section>
 </main>
 ```
  
 ## PHP
 
-TODO 
+* Use comments to summarize blocks of code.
+
+### Example
+```
+<?php
+  session_start();
+
+  // check if the user is already logged in
+  if(isset($_SESSION["name"])){
+    header("location: home.php");
+    exit();
+  }
+
+  // include database connection
+  include_once('config.php');
+?>
+```
 
 ## CSS
 
-All CSS must be in the styles/styles.css file
-* Follow the scheme for the style.css file
 * Our CSS is in groups, we have **media queries**, **HTML tags**, **classes**, **IDs**
 
-### CSS code example
+* Use the following validator to validate your CSS:  https://jigsaw.w3.org/css-validator/#validate_by_input
+
+### Example
 ```CSS
 /* Media queries */
 @font-face {
