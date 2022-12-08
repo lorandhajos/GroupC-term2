@@ -1,6 +1,6 @@
 <?php
   session_start();
-  
+
   // check if the user is already logged in
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: home.php");
