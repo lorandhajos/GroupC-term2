@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <?php include "head.php" ?>
+  <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
 <body>
+  <nav class="sidebar">
+    <?php include "navMenu.php" ?>
+  </nav>
   <header class="py-4 shadow-sm">
 
   </header>
@@ -117,7 +121,7 @@
       </div>
     </div>
   </main>
-  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top">
+  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar fixed-bottom">
     <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
   </footer>
 </body>

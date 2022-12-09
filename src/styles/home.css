@@ -1,0 +1,6 @@
+.sidebar {
+   position: fixed;
+   width: 240px;
+   z-index: 9000;
+ }
+ 
