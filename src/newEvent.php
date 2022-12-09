@@ -11,13 +11,6 @@
 </head>
 <body>
   <div class="container">
-    <header class="py-5 text-center">
-      <div class="mb-4 d-flex justify-content-center align-items-center">
-        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
-        <h2>emorskos</h2>
-      </div>
-      <h2>Create New Event</h2>
-    </header>
     <main>
       <div class="col-md-7 col-lg-8">
         <form class="needs-validation" novalidate method="POST" action="new_event.php">
@@ -59,7 +52,6 @@
             </div>
           </div>
           <hr class="my-4">
-          
           <h4 class="mb-3">Claims</h4>
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="reqJournalists">
@@ -74,9 +66,6 @@
         </form>
       </div> 
     </main>
-    <footer class="py-3 mt-3 d-flex justify-content-end shadow border-top">
-      <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-    </footer>
   </div>
 </body>
 </html>
