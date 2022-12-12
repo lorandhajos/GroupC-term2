@@ -121,7 +121,7 @@
       </div>
     </div>
   </main>
-  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar fixed-bottom">
+  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar">
     <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
   </footer>
 </body>
