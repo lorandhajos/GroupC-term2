@@ -5,12 +5,8 @@
   <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
-<body>
- 
-      
-      
+<body>     
   <header class="py-4 shadow-sm">
-
   </header>
   <main>
     <div class="container" style="margin-left:240px; max-width:65%" >
