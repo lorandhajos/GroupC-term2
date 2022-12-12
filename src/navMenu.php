@@ -11,12 +11,12 @@
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a href="#" class="nav-link active" aria-current="page">
+      <a href="home.php" class="nav-link active" aria-current="page">
         Events
       </a>
     </li>
     <li>
-      <a href="#" class="nav-link text-white">
+      <a href="newEvent.php" class="nav-link text-white">
         Create event
       </a>
     </li>

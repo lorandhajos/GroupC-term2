@@ -7,11 +7,16 @@
   <meta charset="utf-8">
   <?php include "head.php" ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="styles/home.css" rel="stylesheet">
   <title>Create event</title>
 </head>
 <body>
   <main>
-    <div class="container">
+    <div class="container" style="margin-left:375px; max-width:65%">
+      <nav class="sidebar">
+        <?php include "navMenu.php" ?>
+      </nav>
+      <div style="margin-right: 5%; margin-top:5%">
       <form class="needs-validation" novalidate method="POST" action="newEvent.php">
         <h4 class="mb-3">Event Details</h4>
         <div class="row g-3">
@@ -64,6 +69,7 @@
         <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
       </form>
     </div> 
+</div>
   </main>
 </body>
 </html>
