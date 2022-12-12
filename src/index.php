@@ -45,6 +45,7 @@
           $_SESSION["user_id"] = $result->user_id;
           $_SESSION["name"] = $result->name;
           $_SESSION["speciality"] = $result->speciality;
+          $_SESSION["email"] = $result->email;
           $_SESSION['loggedin'] = true;
           
           // redirect to home page
