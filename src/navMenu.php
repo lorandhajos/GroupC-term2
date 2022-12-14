@@ -9,14 +9,14 @@
     </a>
   </div>
   <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="home.php" class="nav-link active" aria-current="page">
+  <ul class="nav nav-pills flex-column mb-auto gap-2">
+    <li class="nav-item ">
+      <a href="home.php" class="btn btn-primary w-100" aria-label="page">
         Events
       </a>
     </li>
     <li>
-      <a href="newEvent.php" class="nav-link text-white">
+      <a href="newEvent.php" class="btn btn-primary w-100">
         Create event
       </a>
     </li>
