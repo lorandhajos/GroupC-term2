@@ -12,8 +12,8 @@
 </head>
 <body>
   <main>
-    <div class="container">
-      <div class="row">
+    <div>
+      <div class="row m-0">
         <div class="col-auto p-0">
           <nav class="sidebar">
             <?php include "navMenu.php" ?>

@@ -7,17 +7,16 @@
 </head>
 <body>     
   <main>
-    <div class="container">
-      <div class="row">
-        <div class="col-auto p-0">
-          <nav class="sidebar">
-            <?php include "navMenu.php" ?>
-          </nav>
-        </div>
-        <div class="col p-0">
-          <header class="py-4 shadow-sm">
-          </header>
-          <div class="p-3">
+    <div class="row m-0">
+      <div class="col-auto p-0">
+        <nav class="sidebar">
+          <?php include "navMenu.php" ?>
+        </nav>
+      </div>
+      <div class="col p-0">
+        <header class="py-4 shadow-sm">
+        </header>
+        <div class="p-3 ">
           <h1 class="mt-4 mb-4">Your Events</h1>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -123,12 +122,12 @@
               </div>
             </div>
           </div>
-</div>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
-            <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-          </footer>
         </div>
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
       </div>
+    </div>
   </main>
 </body>
 </html>
