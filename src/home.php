@@ -1,16 +1,7 @@
 <?php
-$host = $_ENV["DB_SERVER"];
-$user = $_ENV["DB_USER"];
-$pass = $_ENV["DB_PASSWORD"];
-$db = $_ENV["DB_NAME"];
+  session_start();
 
-try {
-  $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}catch(PDOException $e) {
-  echo $e->getMessage();
-  exit();
-}
+  include_once('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +16,45 @@ try {
   <main>
     <div class="container">
       <h1 class="mt-4 mb-4">Your Events</h1>
-      <!-- Add php to display your events -->
+      <div class="accordion" id="accordionExample1">
+        <?php
+        $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
+        $stmt->bindValue("id", $_SESSION["user_id"]);
+        $stmt->execute();
+
+        $yourEventId = 0;
+        while ($results = $stmt->fetch()) {
+          $eventName = $results["name"];
+          $eventId = $results["event_id"];
+          $description = $results["description"];
+          $creationDate = $results["creation_date"];
+          $eventDate = $results["event_date"];
+
+          echo "
+          <div class='accordion-item'>
+            <h2 class='accordion-header' id='headingYourEvent$yourEventId'>
+              <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseYourEvent$yourEventId' aria-expanded='true' aria-controls='collapseYourEvent$yourEventId'>
+              $eventName #$eventId
+              </button>
+            </h2>
+            <div id='collapseYourEvent$yourEventId' class='accordion-collapse collapse' aria-labelledby='headingYourEvent$yourEventId' data-bs-parent='#accordionExample1'>
+              <div class='accordion-body'>
+                <p>$description</p>
+                <p><strong>Event created on:</strong> $creationDate</p>
+                <div class='d-flex justify-content-between'>
+                  <div class='input-group flex-nowrap' style='width: 150px;'>
+                  <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                  <p class='form-control mb-0'>$eventDate</p>
+                  </div>
+                  <a href='home.php?edit=$eventId' class='btn btn-primary' role='button'>Upload Files</a>
+                </div>
+              </div>
+            </div>
+          </div>";
+          $yourEventId ++;
+        }
+        ?>
+      </div>
       <h1 class="mt-4 mb-4">Unclaimed Events</h1>
       <div class="accordion" id="accordionExample2">
         <?php
