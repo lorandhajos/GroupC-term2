@@ -58,8 +58,7 @@
       <h1 class="mt-4 mb-4">Unclaimed Events</h1>
       <div class="accordion" id="accordionExample2">
         <?php
-        $stmt = $conn->prepare("SELECT * FROM Events");
-
+        $stmt = $conn->prepare("SELECT * FROM Events WHERE NOT EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
         $stmt->bindColumn("event_id", $eventId);
         $stmt->bindColumn("name", $eventName);
         $stmt->bindColumn("description", $description);
@@ -99,7 +98,46 @@
         ?>
       </div> 
       <h1 class="mt-4 mb-4">Claimed Events</h1>
-      <!-- Add php to display claimed events -->
+      <div class="accordion" id="accordionExample2">
+        <?php
+        $stmt = $conn->prepare("SELECT * FROM Events WHERE EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+        $stmt->bindColumn("event_id", $eventId);
+        $stmt->bindColumn("name", $eventName);
+        $stmt->bindColumn("description", $description);
+        $stmt->bindColumn("event_date", $eventDate);
+        $stmt->bindColumn("creation_date", $creationDate);
+        
+        $stmt->execute();
+        $results = $stmt->execute();
+
+        $claimedId = 0;
+        while ($results = $stmt->fetch()) {
+          echo "
+          <div class='accordion-item'>
+            <h2 class='accordion-header' id='headingClaimed$claimedId'>
+              <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseClaimed$claimedId' aria-expanded='true' aria-controls='collapseClaimed$claimedId'>
+              $eventName #$eventId
+              </button>
+            </h2>
+            <div id='collapseClaimed$claimedId' class='accordion-collapse collapse' aria-labelledby='headingClaimed$claimedId' data-bs-parent='#accordionExample3'>
+              <div class='accordion-body'>
+                <p>$description</p>
+                <p><strong>Event created on:</strong> $creationDate</p>
+                <div class='d-flex justify-content-between'>
+                  <div class='input-group flex-nowrap' style='width: 150px;'>
+                  <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                  <p class='form-control mb-0'>$eventDate</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          ";
+          $claimedId ++;
+        }
+
+        ?>
+      </div> 
     </div>
   </main>
   <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top">
