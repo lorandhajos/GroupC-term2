@@ -1,6 +1,6 @@
 <?php
-   session_destroy();
-
+  session_start();
+  session_destroy();
+  header("location: index.php");
+  exit();
 ?>
-
-<a href="index.php">go back to login</a>
