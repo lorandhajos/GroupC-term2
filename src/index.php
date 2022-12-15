@@ -71,7 +71,7 @@
   <main class="form-signin w-100 m-auto">
     <form method="POST">
       <div class="mb-4 d-flex justify-content-center align-items-center">
-        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
+        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="64" height="64">
         <h2>emorskos</h2>
       </div>
       <p class="mb-3 fw-normal text-start">Please sign in</p>
