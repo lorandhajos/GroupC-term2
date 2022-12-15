@@ -20,19 +20,11 @@
 
     // check if email and password are NOT empty
     if (!empty($email) && !empty($password)) {
-      // trim email and password
-      $email = trim($email);
-      $password = trim($password);
-
-      // hash the password
-      $password = password_hash($password, PASSWORD_BCRYPT);
-
-      // check if email exists in the database
       try {
-        $sql = "SELECT * FROM Users WHERE email=:email AND password=:password LIMIT 1";
+        // find the user in the database
+        $sql = "SELECT * FROM Users WHERE email=:email LIMIT 1";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':email', $email);
-        $stmt->bindValue(':password', $password);
         $stmt->execute();
       } catch (Exception $e) {
         $error = "Failed to connect to the database";
@@ -41,15 +33,20 @@
       // if there are no errors fetch data from the database
       if (empty($error)) {
         if ($result = $stmt->fetch(PDO::FETCH_OBJ)) {
-          // store user data in session
-          $_SESSION["user_id"] = $result->user_id;
-          $_SESSION["name"] = $result->name;
-          $_SESSION["speciality"] = $result->speciality;
-          $_SESSION["email"] = $result->email;
-          $_SESSION['loggedin'] = true;
-          
-          // redirect to home page
-          header("location: home.php");
+          // check if the password is correct
+          if (password_verify($password, $result->password)) {
+            // store user data in session
+            $_SESSION["user_id"] = $result->user_id;
+            $_SESSION["name"] = $result->name;
+            $_SESSION["speciality"] = $result->speciality;
+            $_SESSION["email"] = $result->email;
+            $_SESSION['loggedin'] = true;
+            
+            // redirect to home page
+            header("location: home.php");
+          } else {
+            $error = "Invalid email or password";
+          }
         } else {
           $error = "Invalid email or password";
         }
