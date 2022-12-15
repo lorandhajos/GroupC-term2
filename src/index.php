@@ -25,7 +25,7 @@
       $password = trim($password);
 
       // hash the password
-      $password = password_hash($password, PASSWORD_BCRYPT);
+      $password = hash("sha256",$password);
 
       // check if email exists in the database
       try {
