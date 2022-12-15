@@ -5,7 +5,7 @@
   <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
-<body>     
+<body>
   <main>
     <div class="row m-0">
       <div class="col-auto p-0">

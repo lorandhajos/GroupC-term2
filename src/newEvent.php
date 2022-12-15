@@ -77,7 +77,6 @@
             <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
           </footer>
         </div>
-    
       </div> 
     </div>
   </main>
