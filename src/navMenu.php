@@ -22,7 +22,7 @@
     </li>
   </ul>
   <div class="d-flex align-items-center">
-    <a href="#" class="nav-link text-white signOutText">
+    <a href="logout.php" class="nav-link text-white signOutText">
       Sign Out
       <i class="fa-solid fa-right-from-bracket"></i>
     </a>
