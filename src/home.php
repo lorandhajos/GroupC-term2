@@ -46,7 +46,7 @@
                   <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                   <p class='form-control mb-0'>$eventDate</p>
                   </div>
-                  <a href='home.php?edit=$eventId' class='btn btn-primary' role='button'>Upload Files</a>
+                  <a href='home.php' class='btn btn-primary' role='button'>Upload Files</a>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
           echo "
           <div class='accordion-item'>
             <h2 class='accordion-header' id='heading$accordionId'>
-              <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$accordionId' aria-expanded='true' aria-controls='collapse$accordionId'>
+              <button class='accordion-button collapsed d-flex' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$accordionId' aria-expanded='true' aria-controls='collapse$accordionId'>
               $eventName #$eventId
               </button>
             </h2>
@@ -86,15 +86,19 @@
                   <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                   <p class='form-control mb-0'>$eventDate</p>
                   </div>
-                  <a href='home.php?edit=$eventId' class='btn btn-primary' role='button'>Claim Event</a>
+                  <form action='claimevents.php' method='POST'>
+                    <input type='hidden' name='event_id' value='$eventId'>
+                    <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
+                  </form>
                 </div>
+                <a href='editEvent.php' class='btn btn-primary mt-2' role='button'>Edit</a>
               </div>
             </div>
           </div>
           ";
           $accordionId ++;
         }
-
+        
         ?>
       </div> 
       <h1 class="mt-4 mb-4">Claimed Events</h1>
