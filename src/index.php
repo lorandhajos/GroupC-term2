@@ -71,7 +71,7 @@
         <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="64" height="64">
         <h2>emorskos</h2>
       </div>
-      <p class="mb-3 fw-normal text-start">Please sign in</p>
+      <p class="mb-3 fw-normal text-start text-muted">Please sign in</p>
       <?php
         // alert the users if there is an error
         if (!empty($error)) {
@@ -86,6 +86,7 @@
         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
         <label for="floatingPassword">Password</label>
       </div>
+      <a href="forgotPassword.php" class="d-block mt-3 text-start fw-normal">Forgot password?</a>
       <button type="submit" name="submit" class="mt-3 w-100 btn btn-lg btn-primary">Sign in</button>
       <p class="mt-5 mb-3 text-muted">© IT1C 2022</p>
     </form>
