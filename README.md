@@ -1,7 +1,7 @@
 # Group C year 1 term 2
 ## Project Gemorskos
 
-A NHLStenden student project in cooparation with an imaginary company called Gemorskos, an online newspaper company.
+A NHLStenden student project in cooperation with an imaginary company called Gemorskos, an online newspaper company.
 
 ### Group members:
 * Loránd Máté Hájos (Team Leader) lorand.hajos@student.nhlstenden.com
@@ -34,3 +34,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+### Getting started
+
+This code has a ```docker-compose.yaml``` file. That means that you have to install docker and docker-compose first.
+
+Make sure you create a ```.env``` file in the root directory and fill in the following template:
+```
+DB_SERVER=
+DB_ROOT_USER=
+DB_ROOT_PASSWORD=
+DB_NAME=
+MAILER_SENDER=
+MAILER_PASSWORD=
+```
+
+To run the project you need to use ```docker-compose```
+```
+docker-compose build
+docker-compose up
+```
+
+You need to import the database structure into phpmyadmin.
+
+1. Open ```localhost:8080``` in a web browser
+2. Log into phpmyadmin using the credential you set in the ```.env``` file.
+3. Click create a new database and name it ```gemorskos```
+4. Click import and then select the database file.
+5. Once the file is uploaded, click import.
+
+You need to download PHPMailer.
+
+1. Go to https://github.com/PHPMailer/PHPMailer
+2. Click releases
+3. Under the version 6.7.1 click on soure code to download
+4. Extract the archive and copy the src folder to ```src/PHPMailer/```
