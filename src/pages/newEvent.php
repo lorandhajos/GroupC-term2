@@ -3,7 +3,7 @@
 
   // check if the user is logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: index.php");
+    header("location: ../src/index.php");
   }
 ?>
 
@@ -11,9 +11,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php include "head.php" ?>
+  <?php include "../pages/head.php" ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="styles/home.css" rel="stylesheet">
+  <link href="../styles/home.css" rel="stylesheet">
   <title>Create event</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
       <div class="row m-0">
         <div class="col-auto p-0">
           <nav class="sidebar">
-            <?php include "navMenu.php" ?>
+            <?php include "../pages/navMenu.php" ?>
           </nav>
         </div>
         <div class="col p-0">

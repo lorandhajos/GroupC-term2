@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "head.php" ?>
+  <?php include "pages/head.php" ?>
   <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
@@ -19,7 +19,7 @@
     <div class="row m-0">
       <div class="col-auto p-0">
         <nav class="sidebar">
-          <?php include "navMenu.php" ?>
+          <?php include "pages/navMenu.php" ?>
         </nav>
       </div>
       <div class="col p-0">
