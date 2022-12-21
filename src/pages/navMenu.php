@@ -5,15 +5,16 @@
     </a>
 
 </div>
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark h-100 justify-content-between ">
+  <div class="d-flex flex-column flex-shrink-0 text-bg-dark h-100 justify-content-between ">
   <!-- <hr> -->
   <div>
   <div class="profile ">
-    <a href="#" class="d-flex align-items-center text-white text-decoration-none">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none p-3">
       <?php echo "<strong>" . $_SESSION['name'] . "</strong>";?>
     </a>
   </div>
   <!-- <hr> -->
+  <div class="brandlink"></div>
   <ul class="nav nav-pills flex-column">
     <li class="nav-item">
       <a href="../home.php" class="nav-link text-white" aria-current="page">
@@ -28,7 +29,7 @@
   </ul>
 </div>
   <div class="d-flex align-items-end">
-    <a href="../logout.php" class="nav-link text-white signOutText pb-4 mb-5">
+    <a href="../logout.php" class="nav-link text-white signOutText pb-5 mb-5 p-3">
       Sign Out
       <i class="fa-solid fa-right-from-bracket"></i>
     </a>

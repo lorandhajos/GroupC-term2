@@ -17,7 +17,7 @@
   <title>Create event</title>
 </head>
 <body>
-  <main>
+  <main >
     <div>
       <div class="row m-0">
         <div class="col-auto p-0">
@@ -26,11 +26,11 @@
           </nav>
         </div>
         <div class="col p-0">
-          <header class="py-4 shadow-sm">
+          <header class="headerheight shadow-sm">
           </header>
-          <div class="p-3">
-            <form class="needs-validation p-3" novalidate method="POST" action="newEvent.php">
-              <h4 class="mb-3">Event Details</h4>
+          <div class="p-4">
+            <form class="needs-validation" novalidate method="POST" action="newEvent.php">
+              <h2 class="mb-3">Event Details</h2>
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="eventTitle" class="form-label">Event Title</label>
@@ -53,7 +53,7 @@
                     Please provide more details regarding the event.
                   </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
                   <select class="form-select" id="eventCategory" required>
                     <option value="">Not Specified</option>
@@ -66,19 +66,19 @@
                     Please select a valid category
                   </div>
                 </div>
-              </div>
-              <hr class="my-4">
-              <h4 class="mb-3">Claims</h4>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="reqJournalists">
-                <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
-              </div>
+                <div class="col-md-6">
+                  <label class="md-3">Claims</label>
+                  <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="reqJournalists">
+                  <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
+               </div>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="reqPhotographers">
                 <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
               </div>
-              <hr class="my-4">
-              <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
+              </div>
+              <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit">Create Event</button>
+              </div>
             </form>
           </div>
           <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">

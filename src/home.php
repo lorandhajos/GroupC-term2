@@ -25,8 +25,8 @@
       <div class="col p-0">
         <header class="headerheight shadow-sm">
         </header>
-        <div class="p-3 ">
-          <h1 class="mt-4 mb-4">Your Events</h1>
+        <div class="p-4">
+          <h2 class="mb-4">Your Events</h2>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-4 mb-4">Unclaimed Events</h1>
+          <h2 class="mt-4 mb-4">Unclaimed Events</h2>
           <div class="accordion" id="accordionExample2">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
@@ -92,7 +92,7 @@
               </div>
             </div>
           </div>
-          <h1 class="mt-4 mb-4">Claimed Events</h1>
+          <h2 class="mt-4 mb-4">Claimed Events</h2>
           <div class="accordion" id="accordionExample3">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingSix">
