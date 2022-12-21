@@ -18,12 +18,12 @@
   <main>
     <div class="row m-0">
       <div class="col-auto p-0">
-        <nav class="sidebar">
+        <nav class="sidebar vh-100 overflow-hidden">
           <?php include "pages/navMenu.php" ?>
         </nav>
       </div>
       <div class="col p-0">
-        <header class="py-4 shadow-sm">
+        <header class="headerheight shadow-sm">
         </header>
         <div class="p-3 ">
           <h1 class="mt-4 mb-4">Your Events</h1>

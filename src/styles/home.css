@@ -5,3 +5,11 @@
   left: 0;
   top: 0;
 }
+
+.brandlink {
+  border-bottom: 1px solid grey;
+}
+
+.headerheight {
+  height: 77px;
+}
