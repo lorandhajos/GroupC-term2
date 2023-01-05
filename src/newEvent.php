@@ -1,5 +1,54 @@
 <?php
   session_start();
+  if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $errs = array();
+    if (empty($_POST["eventTitle"])) {
+      $errs[] = "please enter a title for the event";
+    }
+    else {
+      $eventTitle = filter_input(INPUT_POST, "eventTitle", FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    if (empty($_POST["eventDate"])) {
+      $errs[] = "please provide the date for the event";
+    }
+    else {
+      $eventDate = filter_input(INPUT_POST, "eventDate", FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    if (empty($_POST["eventDesc"])) {
+      $errs[] = "please provide a short event description";
+    }
+    else {
+      $eventDesc = filter_input(INPUT_POST, "eventDesc", FILTER_SANITIZE_SPECIAL_CHARS);
+      echo "description: $desc";
+    }
+    if (empty($_POST["eventCategory"])) {
+      $errs[] = "please provide an event category";
+    }
+    else {
+      $eventCat = filter_input(INPUT_POST, "eventCategory", FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    $reqJournalists = isset($_POST["reqJournalists"]);
+    $reqPhotographers = isset($_POST["reqPhotographers"]);
+    echo $reqJournalists ? 1 : 0;
+    echo $reqPhotographers ? 1 : 0;
+    foreach ($errs as $err) {
+      echo $err;
+      echo "<br>";
+    }
+    $creationDate = date("y-m-d");
+    include("config.php");
+    try {
+      $connection = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    }
+    catch (PDOexception $e) {
+      echo $e. "<br>";
+    }
+    if (count($errs) == 0) {
+      /*
+      TODO: create a database query
+      */
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,28 +66,28 @@
         <div class="row g-3">
           <div class="col-sm-6">
             <label for="eventTitle" class="form-label">Event Title</label>
-            <input type="text" class="form-control" id="eventTitle" placeholder="" value="" required>
+            <input type="text" class="form-control" name="eventTitle" id="eventTitle" placeholder="" value="" required>
             <div class="invalid-feedback">
               Event title is required.
             </div>
           </div>
           <div class="col-sm-6">
             <label for="eventDate" class="form-label">Date</label>
-            <input type="date" class="form-control" id="eventDate" placeholder="" value="" required>
+            <input type="date" class="form-control" name="eventDate" id="eventDate" placeholder="" value="" required>
             <div class="invalid-feedback">
               Date is required.
             </div>
           </div>
           <div class="col-12">
             <label for="eventDesc" class="form-label">Details</label>
-            <textarea class="form-control" id="eventDesc" rows="5"> </textarea>
+            <textarea class="form-control" name="eventDesc" id="eventDesc" rows="5"> </textarea>
             <div class="invalid-feedback">
               Please provide more details regarding the event.
             </div>
           </div>
           <div class="col-md-5">
             <label for="eventCategory" class="form-label">Event Category</label>
-            <select class="form-select" id="eventCategory" required>
+            <select class="form-select" name="eventCategory" id="eventCategory" required>
               <option value="">Not Specified</option>
               <option>Sports</option>
               <option>Politics</option>
@@ -53,11 +102,11 @@
         <hr class="my-4">
         <h4 class="mb-3">Claims</h4>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="reqJournalists">
+          <input type="checkbox" class="form-check-input" id="reqJournalists" value="true">
           <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
         </div>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="reqPhotographers">
+          <input type="checkbox" class="form-check-input" id="reqPhotographers" value="true">
           <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
         </div>
         <hr class="my-4">
