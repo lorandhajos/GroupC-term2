@@ -19,7 +19,6 @@
     }
     else {
       $eventDesc = filter_input(INPUT_POST, "eventDesc", FILTER_SANITIZE_SPECIAL_CHARS);
-      echo "description: $desc";
     }
     if (empty($_POST["eventCategory"])) {
       $errs[] = "please provide an event category";
@@ -29,8 +28,6 @@
     }
     $reqJournalists = isset($_POST["reqJournalists"]);
     $reqPhotographers = isset($_POST["reqPhotographers"]);
-    echo $reqJournalists ? 1 : 0;
-    echo $reqPhotographers ? 1 : 0;
     foreach ($errs as $err) {
       echo $err;
       echo "<br>";
@@ -44,9 +41,36 @@
       echo $e. "<br>";
     }
     if (count($errs) == 0) {
-      /*
-      TODO: create a database query
-      */
+      // generate an event ID by using the maximum ID the database and adding 1
+      // could be replaced with something more sophisticated
+      try {
+        $sql="SELECT MAX(event_id) FROM Events;";
+        $stmt=$connection->prepare($sql);
+        $stmt->execute();
+      }
+      catch (PDOexception $e){
+        echo $e. "<br>";
+      }
+      if ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $eventID = $result["MAX(event_id)"];
+        $eventID += 1;
+      }
+      else {
+        $eventID = 1;
+      }
+      try {
+        $sql = "INSERT INTO Events (event_id, name, description, event_date, creation_date) VALUES (:event_id, :event_title, :event_desc, :ev_date, :ev_created)";
+        $stmt=$connection->prepare($sql);
+        $stmt->bindValue("event_id", $eventID);
+        $stmt->bindValue("event_title", $eventTitle);
+        $stmt->bindValue("event_desc", $eventDesc);
+        $stmt->bindValue("ev_date", $eventDate);
+        $stmt->bindValue("ev_created", $creationDate); 
+        $stmt->execute();
+      }
+        catch (PDOexception $e) {
+        echo $e. "<br>";
+      }
     }
   }
 ?>
