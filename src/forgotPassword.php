@@ -33,7 +33,7 @@
         <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Email" required>
         <label for="floatingInput">Email address</label>
       </div>
-      <a href="#" class="d-block mt-3 text-start fw-normal">Go back</a>
+      <a href="/" class="d-block mt-3 text-start fw-normal">Go back</a>
       <button type="submit" name="submit" class="mt-3 w-100 btn btn-lg btn-primary">Send</button>
       <p class="mt-5 mb-3 text-muted">© IT1C 2022</p>
     </form>
