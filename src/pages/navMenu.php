@@ -5,8 +5,8 @@
     </a>
 
 </div>
-  <div class="d-flex flex-column flex-shrink-0 text-bg-dark h-100 justify-content-between ">
-    <div>
+<div class="d-flex flex-column flex-shrink-0 text-bg-dark h-100 justify-content-between ">
+  <div>
       <div class="profile">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none p-3">
           <?php echo "<strong>" . $_SESSION['name'] . "</strong>";?>
