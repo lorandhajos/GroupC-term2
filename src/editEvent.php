@@ -27,23 +27,20 @@
   $stmt->fetch();
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $editedName = filter_input(INPUT_POST, "eventName");
-    $editedDate = filter_input(INPUT_POST, "eventDate");
-    $editedDescription = filter_input(INPUT_POST, "description");
+    $editedName = filter_input(INPUT_POST, "eventName", FILTER_SANITIZE_SPECIAL_CHARS);
+    $editedDate = filter_input(INPUT_POST, "eventDate", FILTER_SANITIZE_NUMBER_INT);
+    $editedDescription = filter_input(INPUT_POST, "description", FILTER_SANITIZE_SPECIAL_CHARS);
 
-    //if (some checks) {
-        $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, event_date=:editedDate WHERE event_id=:id");
+    $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, event_date=:editedDate WHERE event_id=:id");
 
-        $stmt->bindParam("id", $id, PDO::PARAM_INT);
-        $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
-        $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
-        $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
-        $stmt->execute();
+    $stmt->bindParam("id", $id, PDO::PARAM_INT);
+    $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
+    $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
+    $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
+    $stmt->execute();
 
-        header("Location: home.php");
-
+    header("Location: home.php");
   }
-
 ?>
 
 <!DOCTYPE html>
