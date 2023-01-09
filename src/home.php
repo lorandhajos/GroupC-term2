@@ -91,7 +91,7 @@
                     <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                   </form>
                 </div>
-                <a href='editEvent.php' class='btn btn-primary mt-2' role='button'>Edit</a>
+                <a href='editEvent.php?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>
               </div>
             </div>
           </div>
