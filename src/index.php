@@ -20,19 +20,11 @@
 
     // check if email and password are NOT empty
     if (!empty($email) && !empty($password)) {
-      // trim email and password
-      $email = trim($email);
-      $password = trim($password);
-
-      // hash the password
-      $password = hash('sha256', $password);
-
-      // check if email exists in the database
       try {
-        $sql = "SELECT * FROM Users WHERE email=:email AND password=:password LIMIT 1";
+        // find the user in the database
+        $sql = "SELECT * FROM Users WHERE email=:email LIMIT 1";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':email', $email);
-        $stmt->bindValue(':password', $password);
         $stmt->execute();
       } catch (Exception $e) {
         $error = "Failed to connect to the database";
@@ -41,14 +33,20 @@
       // if there are no errors fetch data from the database
       if (empty($error)) {
         if ($result = $stmt->fetch(PDO::FETCH_OBJ)) {
-          // store user data in session
-          $_SESSION["user_id"] = $result->user_id;
-          $_SESSION["name"] = $result->name;
-          $_SESSION["speciality"] = $result->speciality;
-          $_SESSION['loggedin'] = true;
-          
-          // redirect to home page
-          header("location: home.php");
+          // check if the password is correct
+          if (password_verify($password, $result->password)) {
+            // store user data in session
+            $_SESSION["user_id"] = $result->user_id;
+            $_SESSION["name"] = $result->name;
+            $_SESSION["speciality"] = $result->speciality;
+            $_SESSION["email"] = $result->email;
+            $_SESSION['loggedin'] = true;
+            
+            // redirect to home page
+            header("location: home.php");
+          } else {
+            $error = "Invalid email or password";
+          }
         } else {
           $error = "Invalid email or password";
         }
@@ -70,10 +68,10 @@
   <main class="form-signin w-100 m-auto">
     <form method="POST">
       <div class="mb-4 d-flex justify-content-center align-items-center">
-        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
+        <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="64" height="64">
         <h2>emorskos</h2>
       </div>
-      <p class="mb-3 fw-normal text-start">Please sign in</p>
+      <p class="mb-3 fw-normal text-start text-muted">Please sign in</p>
       <?php
         // alert the users if there is an error
         if (!empty($error)) {
@@ -88,6 +86,7 @@
         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
         <label for="floatingPassword">Password</label>
       </div>
+      <a href="forgotPassword.php" class="d-block mt-3 text-start fw-normal">Forgot password?</a>
       <button type="submit" name="submit" class="mt-3 w-100 btn btn-lg btn-primary">Sign in</button>
       <p class="mt-5 mb-3 text-muted">© IT1C 2022</p>
     </form>

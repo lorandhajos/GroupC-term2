@@ -7,12 +7,10 @@
 <html lang="en">
 <head>
   <?php include "head.php" ?>
+  <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
 <body>
-  <header class="py-4 shadow-sm">
-
-  </header>
   <main>
     <div class="container">
       <h1 class="mt-4 mb-4">Your Events</h1>
@@ -144,8 +142,5 @@
       </div> 
     </div>
   </main>
-  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top">
-    <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-  </footer>
 </body>
 </html>
