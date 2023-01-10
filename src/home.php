@@ -99,7 +99,7 @@
                           <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                           <p class='form-control mb-0'>$eventDate</p>
                           </div>
-                          <form action='claimevents.php' method='POST'>
+                          <form action='pages/claimEvents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                           </form>

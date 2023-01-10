@@ -1,6 +1,6 @@
 <?php
   session_start();
-  include_once('pages/config.php');
+  include_once('config.php');
 
   // check whether the form has been submitted
   if (isset($_POST["submit"])) {
@@ -13,6 +13,7 @@
       $stmt->bindValue(':user_id', $_SESSION["user_id"]);
       $stmt->bindValue(':event_id', $_POST["event_id"]);
       $stmt->execute();
+      header("location: /home.php");
     } catch (Exception $e) {
       echo $e;
     }
