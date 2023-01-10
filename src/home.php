@@ -37,12 +37,12 @@
 
                 $yourEventId = 0;
                 while ($results = $stmt->fetch()) {
-                  
-                  $eventName = $results["name"];
-                  $eventId = $results["event_id"];
-                  $description = $results["description"];
-                  $creationDate = $results["creation_date"];
-                  $eventDate = $results["event_date"];
+                
+                $eventName = $results["name"];
+                $eventId = $results["event_id"];
+                $description = $results["description"];
+                $creationDate = $results["creation_date"];
+                $eventDate = $results["event_date"];
 
                   echo "
                   <div class='accordion-item'>
@@ -57,8 +57,8 @@
                         <p><strong>Event created on:</strong> $creationDate</p>
                         <div class='d-flex justify-content-between'>
                           <div class='input-group flex-nowrap' style='width: 150px;'>
-                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                          <p class='form-control mb-0'>$eventDate</p>
+                            <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                            <p class='form-control mb-0'>$eventDate</p>
                           </div>
                           <form action='home.php' method='post' enctype='multipart/form-data'>
                             Select file to upload:
@@ -71,61 +71,58 @@
                     </div>
                   </div>";
                   $yourEventId ++;
-                  // var_dump($_POST);
                 } 
-                  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
-                    $target_dir = 'uploads/' . $eventId . '/';
-                    $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
-                    $uploadOk = 1;
-                    $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                    //var_dump($_POST);
-                    //check if the directory already exists. 
-                    
-                    if (is_dir($target_dir) == false) {
-                        // make dir with the name $target_dir
-                        mkdir($target_dir);
-                    }
-                            
-                    // Check if file already exists
-                    if (file_exists($target_file)) {
-                      echo "Sorry, file already exists. ";
-                      $uploadOk = 0;
-                    }
-                
-                    //php.ini still needs to be changed to allow files more than 2mb!!!
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                  $eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
+                  $target_dir = 'uploads/' . $eventId . '/';
+                  $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
+                  $uploadOk = 1;
+                  $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                 
+                  //check if the directory already exists. 
+                  if (is_dir($target_dir) == false) {
+                      // make dir with the name $target_dir
+                      mkdir($target_dir);
+                  }
+                          
+                  // Check if file already exists
+                  if (file_exists($target_file)) {
+                    echo "Sorry, file already exists. ";
+                    $uploadOk = 0;
+                  }
+              
+                  //php.ini still needs to be changed to allow files more than 2mb!!!
 
-                    // // Check file size
-                    // if ($_FILES["fileToUpload"]["size"] > 500000) {
-                    //   echo "Sorry, your file is too large. ";
-                    //   $uploadOk = 0;
-                    // }
-                
-                    // Allow certain file formats
-                    if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
-                    && $FileType != "gif" && $FileType != "docx" && $FileType != "txt" 
-                    && $FileType != "odt" && $FileType != "dotx" && $FileType != "doc" 
-                    && $FileType != "docm") {
-                      echo "Sorry, your files are not allowed. ";
-                      $uploadOk = 0;
-                    }
-                  
-                    // Check if $uploadOk is set to 0 by an error
-                    if ($uploadOk == 0) {
-                      echo "Sorry, your file was not uploaded. ";
-                    // if everything is ok, try to upload file
-                    } else {
-                      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                        echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                      } else {
-                        if ( !empty($_FILES)) {
-                        echo "Sorry,x there was an error uploading your file. ";}
-                      }
-                    }
-                    // unset($target_dir, $target_file, $uploadOk, $FileType, $eventId);
-                    var_dump($eventId);
+                  // // Check file size
+                  // if ($_FILES["fileToUpload"]["size"] > 500000) {
+                  //   echo "Sorry, your file is too large. ";
+                  //   $uploadOk = 0;
+                  // }
+              
+                  // Allow certain file formats
+                  if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
+                  && $FileType != "gif" && $FileType != "docx" && $FileType != "txt" 
+                  && $FileType != "odt" && $FileType != "dotx" && $FileType != "doc" 
+                  && $FileType != "docm") {
+                    echo "Sorry, your files are not allowed. ";
+                    $uploadOk = 0;
                   }
                 
+                  // Check if $uploadOk is set to 0 by an error
+                  if ($uploadOk == 0) {
+                    echo "Sorry, your file was not uploaded. ";
+                  // if everything is ok, try to upload file
+                  } else {
+                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                      echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                    } else {
+                      if ( !empty($_FILES)) {
+                      echo "Sorry,x there was an error uploading your file. ";}
+                    }
+                  }
+                  // unset($target_dir, $target_file, $uploadOk, $FileType, $eventId);
+                  var_dump($eventId);
+                }
               ?>
             </div>
             <h2 class="mt-4 mb-4">Unclaimed Events</h2>
@@ -158,7 +155,7 @@
                           <div class='input-group flex-nowrap' style='width: 150px;'>
                           <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                           <p class='form-control mb-0'>$eventDate</p>
-                          </div>
+                          </div>  
                           <form action='pages/claimEvents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
