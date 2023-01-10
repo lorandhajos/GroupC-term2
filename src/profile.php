@@ -1,6 +1,11 @@
 <?php
   session_start();
   include_once "config.php";
+  
+  
+  if($_SERVER['REQUEST_METHOD']=='POST'){
+	  $newpass=filter_input(INPUT_POST, "newPassword"); //acordam valoarea lui "newPassword" lui $newpass din form
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +31,8 @@
             echo "<p><strong>Name: " . $_SESSION['name'] . "</strong></p>";
             echo "<p><strong>Email: " . $_SESSION['email'] . "</strong></p>";
             echo "<p><strong>Specialty: " . $_SESSION['speciality'] . "</strong></p>";
-            /*try {
+            
+			/*try {
               $sql = "SELECT COUNT(file_id) FROM Files WHERE user_id=:session_id";
               $stmt = $conn->prepare($sql);
               $stmt->bindValue(':session_id', $_SESSION['user_id']);
@@ -45,19 +51,21 @@
           <hr class="my-4">
           <div>
             <p><strong>Change Password</strong></p>
-            <div class="col-sm-6">
-              <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
-            </div>
-            <p></p>
-            <div class="col-sm-6">
-              <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="">
-            </div>
-            <p></p>
-            <div class="col-sm-6">
-              <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
-            </div>
-            <p></p>
-            <button type="button" class="btn btn-primary" type="submit">Submit</button>
+			<form action="profile.php" method="POST">
+				<div class="col-sm-6">
+				  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
+				</div>
+				<p></p>
+				<div class="col-sm-6">
+				  <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="">
+				</div>
+				<p></p>
+				<div class="col-sm-6">
+				  <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
+				</div>
+				<p></p>
+				<button type="button" class="btn btn-primary" type="submit">Submit</button>
+			</form>
           </div>
         </div>
         
