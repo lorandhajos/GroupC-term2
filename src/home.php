@@ -1,124 +1,165 @@
+<?php
+  session_start();
+
+  // check if the user is already logged in
+  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: index.php");
+  }
+
+  // include database connection
+  include_once('pages/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "head.php" ?>
+  <?php include "pages/head.php" ?>
   <title>Home Page</title>
 </head>
 <body>
-  <header class="py-4 shadow-sm">
-
-  </header>
   <main>
-    <div class="container">
-      <h1 class="mt-4 mb-4">Your Events</h1>
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Event Name #1
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Event Name #2
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
+    <div class="row m-0">
+      <div class="col-auto p-0">
+        <nav class="sidebar vh-100 overflow-hidden">
+          <?php include "pages/navMenu.php" ?>
+        </nav>
       </div>
-      <h1 class="mt-4 mb-4">Unclaimed Events</h1>
-      <div class="accordion" id="accordionExample2">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-            Event Name #1
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample2">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      <div class="col p-0 d-flex flex-column justify-content-between">
+        <div>
+          <header class="headerheight shadow-sm"></header>
+          <div class="mx-5">
+            <h2 class="my-4">Your Events</h2>
+            <div class="accordion" id="accordionExample1">
+              <?php
+                $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
+                $stmt->bindValue("id", $_SESSION["user_id"]);
+                $stmt->execute();
+
+                $yourEventId = 0;
+                while ($results = $stmt->fetch()) {
+                  $eventName = $results["name"];
+                  $eventId = $results["event_id"];
+                  $description = $results["description"];
+                  $creationDate = $results["creation_date"];
+                  $eventDate = $results["event_date"];
+
+                  echo "
+                  <div class='accordion-item'>
+                    <h2 class='accordion-header' id='headingYourEvent$yourEventId'>
+                      <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseYourEvent$yourEventId' aria-expanded='true' aria-controls='collapseYourEvent$yourEventId'>
+                      $eventName #$eventId
+                      </button>
+                    </h2>
+                    <div id='collapseYourEvent$yourEventId' class='accordion-collapse collapse' aria-labelledby='headingYourEvent$yourEventId' data-bs-parent='#accordionExample1'>
+                      <div class='accordion-body'>
+                        <p>$description</p>
+                        <p><strong>Event created on:</strong> $creationDate</p>
+                        <div class='d-flex justify-content-between'>
+                          <div class='input-group flex-nowrap' style='width: 150px;'>
+                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                          <p class='form-control mb-0'>$eventDate</p>
+                          </div>
+                          <a href='home.php' class='btn btn-primary' role='button'>Upload Files</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>";
+                  $yourEventId ++;
+                }
+              ?>
             </div>
+            <h2 class="mt-4 mb-4">Unclaimed Events</h2>
+            <div class="accordion" id="accordionExample2">
+              <?php
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE NOT EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt->bindColumn("event_id", $eventId);
+                $stmt->bindColumn("name", $eventName);
+                $stmt->bindColumn("description", $description);
+                $stmt->bindColumn("event_date", $eventDate);
+                $stmt->bindColumn("creation_date", $creationDate);
+                
+                $stmt->execute();
+                $results = $stmt->execute();
+
+                $accordionId = 0;
+                while ($results = $stmt->fetch()) {
+                  echo "
+                  <div class='accordion-item'>
+                    <h2 class='accordion-header' id='heading$accordionId'>
+                      <button class='accordion-button collapsed d-flex' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$accordionId' aria-expanded='true' aria-controls='collapse$accordionId'>
+                      $eventName #$eventId
+                      </button>
+                    </h2>
+                    <div id='collapse$accordionId' class='accordion-collapse collapse' aria-labelledby='heading$accordionId' data-bs-parent='#accordionExample2'>
+                      <div class='accordion-body'>
+                        <p>$description</p>
+                        <p><strong>Event created on:</strong> $creationDate</p>
+                        <div class='d-flex justify-content-between'>
+                          <div class='input-group flex-nowrap' style='width: 150px;'>
+                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                          <p class='form-control mb-0'>$eventDate</p>
+                          </div>
+                          <form action='pages/claimEvents.php' method='POST'>
+                            <input type='hidden' name='event_id' value='$eventId'>
+                            <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
+                          </form>
+                        </div>
+                        <a href='editEvent.php?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>
+                      </div>
+                    </div>
+                  </div>
+                  ";
+                  $accordionId ++;
+                }
+              ?>
+            </div> 
+            <h2 class="mt-4 mb-4">Claimed Events</h2>
+            <div class="accordion" id="accordionExample2">
+              <?php
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt->bindColumn("event_id", $eventId);
+                $stmt->bindColumn("name", $eventName);
+                $stmt->bindColumn("description", $description);
+                $stmt->bindColumn("event_date", $eventDate);
+                $stmt->bindColumn("creation_date", $creationDate);
+                
+                $stmt->execute();
+                $results = $stmt->execute();
+
+                $claimedId = 0;
+                while ($results = $stmt->fetch()) {
+                  echo "
+                  <div class='accordion-item'>
+                    <h2 class='accordion-header' id='headingClaimed$claimedId'>
+                      <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseClaimed$claimedId' aria-expanded='true' aria-controls='collapseClaimed$claimedId'>
+                      $eventName #$eventId
+                      </button>
+                    </h2>
+                    <div id='collapseClaimed$claimedId' class='accordion-collapse collapse' aria-labelledby='headingClaimed$claimedId' data-bs-parent='#accordionExample3'>
+                      <div class='accordion-body'>
+                        <p>$description</p>
+                        <p><strong>Event created on:</strong> $creationDate</p>
+                        <div class='d-flex justify-content-between'>
+                          <div class='input-group flex-nowrap' style='width: 150px;'>
+                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                          <p class='form-control mb-0'>$eventDate</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  ";
+                  $claimedId ++;
+                }
+              ?>
+            </div> 
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            Event Name #2
-            </button>
-          </h2>
-          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample2">
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingFive">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            Event Name #3
-            </button>
-          </h2>
-          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample2">
-            <div class="accordion-body"	>
-              <strong>This is the third item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
-      </div>
-      <h1 class="mt-4 mb-4">Claimed Events</h1>
-      <div class="accordion" id="accordionExample3">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingSix">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
-            Event Name #1
-            </button>
-          </h2>
-          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample3">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingSeven">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-            Event Name #2
-            </button>
-          </h2>
-          <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample3">
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingEight">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-            Event Name #3
-            </button>
-          </h2>
-          <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample3">
-            <div class="accordion-body"	>
-              <strong>This is the third item's accordion body.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-          </div>
-        </div>
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
       </div>
     </div>
   </main>
-  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top">
-    <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-  </footer>
 </body>
 </html>

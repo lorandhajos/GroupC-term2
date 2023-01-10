@@ -1,0 +1,24 @@
+.sidebar {
+  position: sticky;
+  width: 240px;
+  z-index: 9000;
+  left: 0;
+  top: 0;
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: grey;
+}
+
+.brandlink {
+  border-bottom: 1px solid grey;
+}
+
+.headerheight {
+  height: 77px;
+}
+
