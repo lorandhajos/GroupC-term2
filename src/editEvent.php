@@ -1,10 +1,11 @@
 <?php
   session_start();
+
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: index.php");
   }
 
-  include("config.php");
+  include_once("pages/config.php");
 
   if(isset($_GET['edit'])) {
     if (is_numeric($_GET['edit'])) {
@@ -13,7 +14,6 @@
       header("Location: home.php");
     }
   }
-  
 
   $stmt = $conn->prepare("SELECT * FROM Events WHERE event_id=:id");
 
@@ -46,65 +46,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "head.php" ?>
+  <?php include "pages/head.php" ?>
   <title>Edit Event</title>
 </head>
 <body>
   <main>
-    <div>
-      <div class="row m-0">
-        <div class="col-auto p-0">
-          <nav class="sidebar">
-            <?php include "navMenu.php" ?>
-          </nav>
+    <div class="row m-0">
+      <div class="col-auto p-0">
+        <nav class="sidebar vh-100 overflow-hidden">
+          <?php include "pages/navMenu.php" ?>
+        </nav>
+      </div>
+      <div class="col p-0 d-flex flex-column justify-content-between">
+        <div>
+          <header class="headerheight shadow-sm"></header>
+          <div class="mx-5">
+            <form class="needs-validation" novalidate method="POST" action="">
+              <h2 class="my-4">Event Details</h2>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="eventTitle" class="form-label">Event Title</label>
+                  <input type="text" class="form-control" name ="eventName" id="eventTitle" value="<?php echo $eventName; ?>" required>
+                </div>
+                <div class="col-sm-6">
+                  <label for="eventDate" class="form-label">Date</label>
+                  <input type="text" class="form-control" name ="eventDate" id="eventDate" value="<?php echo $eventDate; ?>" required>
+                </div>
+                <div class="col-12">
+                  <label for="eventDesc" class="form-label">Details</label>
+                  <textarea class="form-control" id="eventDesc" name ="description" rows="5"><?php echo $description; ?></textarea>
+                </div>
+                <div class="col-md-5">
+                  <label for="eventCategory" class="form-label">Event Category</label>
+                  <select class="form-select" id="eventCategory" required>
+                    <option value="">Not Specified</option>
+                    <option>Sports</option>
+                    <option>Politics</option>
+                    <option>Disasters</option>
+                    <option>Health</option>
+                  </select>
+                </div>
+              </div>
+              <hr class="my-4">
+              <h4 class="mb-3">Claims</h4>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="reqJournalists">
+                <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="reqPhotographers">
+                <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
+              </div>
+              <hr class="my-4">
+              <button class="w-100 btn btn-primary btn-lg" type="submit">Change Event</button>
+            </form>
+          </div>
         </div>
-        <div class="col p-0">
-          <header class="py-4 shadow-sm">
-          </header>
-          <form class="needs-validation p-3" novalidate method="POST" action="">
-            <h4 class="mb-3">Event Details</h4>
-            <div class="row g-3">
-              <div class="col-sm-6">
-                <label for="eventTitle" class="form-label">Event Title</label>
-                <input type="text" class="form-control" name ="eventName" id="eventTitle" value="<?php echo $eventName; ?>" required>
-              </div>
-              <div class="col-sm-6">
-                <label for="eventDate" class="form-label">Date</label>
-                <input type="text" class="form-control" name ="eventDate" id="eventDate" value="<?php echo $eventDate; ?>" required>
-              </div>
-              <div class="col-12">
-                <label for="eventDesc" class="form-label">Details</label>
-                <textarea class="form-control" id="eventDesc" name ="description" rows="5"><?php echo $description; ?></textarea>
-              </div>
-              <div class="col-md-5">
-                <label for="eventCategory" class="form-label">Event Category</label>
-                <select class="form-select" id="eventCategory" required>
-                  <option value="">Not Specified</option>
-                  <option>Sports</option>
-                  <option>Politics</option>
-                  <option>Disasters</option>
-                  <option>Health</option>
-                </select>
-              </div>
-            </div>
-            <hr class="my-4">
-            <h4 class="mb-3">Claims</h4>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="reqJournalists">
-              <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
-            </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="reqPhotographers">
-              <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
-            </div>
-            <hr class="my-4">
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
-          </form>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
-            <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-          </footer>
-        </div>
-      </div> 
+        <footer class="py-3 d-flex justify-content-end shadow border-top navbar ">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
+      </div>
     </div>
   </main>
 </body>

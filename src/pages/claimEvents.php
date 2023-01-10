@@ -13,7 +13,7 @@
       $stmt->bindValue(':user_id', $_SESSION["user_id"]);
       $stmt->bindValue(':event_id', $_POST["event_id"]);
       $stmt->execute();
-      header("Location: home.php");
+      header("location: /home.php");
     } catch (Exception $e) {
       echo $e;
     }

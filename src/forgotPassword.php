@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "head.php" ?>
+  <?php include "pages/head.php" ?>
   <link href="styles/login.css" rel="stylesheet">
   <title>Forgot your password</title>
 </head>

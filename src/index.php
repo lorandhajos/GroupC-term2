@@ -8,7 +8,7 @@
   }
 
   // include database connection
-  include_once('config.php');
+  include_once('pages/config.php');
 
   // define empty error variable
   $error;
@@ -60,7 +60,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php include "head.php" ?>
+  <?php include "pages/head.php" ?>
   <link href="styles/login.css" rel="stylesheet">
   <title>Login</title>
 </head>
