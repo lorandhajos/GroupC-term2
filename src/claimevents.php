@@ -1,4 +1,6 @@
 <?php
+  session_start();
+  include_once('config.php');
 
 include_once('pages/config.php');
 
@@ -16,6 +18,4 @@ if (isset($_POST["submit"])) {
   } catch (Exception $e) {
     echo $e;
   }
-}
-
 ?>
