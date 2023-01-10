@@ -13,12 +13,12 @@
     <div class="brandlink"></div>
     <ul class="nav nav-pills flex-column">
       <li class="nav-item">
-        <a href="../home.php" class="nav-link text-white" aria-current="page">
+        <a href="home.php" class="nav-link text-white" aria-current="page">
           Events
         </a>
       </li>
       <li>
-        <a href="../pages/newEvent.php" class="nav-link text-white">
+        <a href="newEvent.php" class="nav-link text-white">
           Create event
         </a>
       </li>

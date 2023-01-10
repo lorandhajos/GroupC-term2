@@ -11,7 +11,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php include "../pages/head.php" ?>
+  <?php include "pages/head.php" ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../styles/home.css" rel="stylesheet">
   <title>Create event</title>
@@ -22,7 +22,7 @@
       <div class="row m-0">
         <div class="col-auto p-0">
           <nav class="sidebar vh-100 overflow-hidden">
-            <?php include "../pages/navMenu.php" ?>
+            <?php include "pages/navMenu.php" ?>
           </nav>
         </div>
         <div class="col p-0">
