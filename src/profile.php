@@ -4,7 +4,15 @@
   
   
   if($_SERVER['REQUEST_METHOD']=='POST'){
-	  $newpass=filter_input(INPUT_POST, "newPassword"); //acordam valoarea lui "newPassword" lui $newpass din form
+	  $test=$conn->prepare("SELECT password FROM Users WHERE email=:email");
+	  $test->bindParam(':email', $_SESSION['email']);   
+	  $verify=$test->execute();
+	  
+	  $curr_pass=filter_input(INPUT_POST, "CurrentPassword");
+	  if($curr_pass==$verify){
+			echo "yes";
+	  } else {echo"no";}
+		  
   }
 ?>
 <!DOCTYPE html>
@@ -51,7 +59,7 @@
           <hr class="my-4">
           <div>
             <p><strong>Change Password</strong></p>
-			<form action="profile.php" method="POST">
+			<form action="profile.php?yes" method="POST">
 				<div class="col-sm-6">
 				  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
 				</div>
@@ -64,7 +72,7 @@
 				  <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
 				</div>
 				<p></p>
-				<button type="button" class="btn btn-primary" type="submit">Submit</button>
+				<button class="btn btn-primary" type="submit">Submit</button>
 			</form>
           </div>
         </div>
