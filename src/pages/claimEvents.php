@@ -2,8 +2,6 @@
   session_start();
   include_once('pages/config.php');
 
-  include_once('pages/config.php');
-
   // check whether the form has been submitted
   if (isset($_POST["submit"])) {
     try {
