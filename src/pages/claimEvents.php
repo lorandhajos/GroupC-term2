@@ -1,6 +1,6 @@
 <?php
   session_start();
-  include_once('config.php');
+  include_once('pages/config.php');
 
   include_once('pages/config.php');
 

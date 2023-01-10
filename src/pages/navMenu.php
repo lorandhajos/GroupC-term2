@@ -25,7 +25,7 @@
     </ul>
   </div>
   <div class="d-flex align-items-end">
-    <a href="../logout.php" class="nav-link text-white signOutText pb-5 mb-5 p-3">
+    <a href="pages/logout.php" class="nav-link text-white signOutText pb-5 mb-5 p-3">
       Sign Out
       <i class="fa-solid fa-right-from-bracket"></i>
     </a>
