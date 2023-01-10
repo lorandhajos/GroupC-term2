@@ -28,7 +28,7 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="mx-5">
-            <h2 class="mt-4 mb-4">Your Events</h2>
+            <h2 class="my-4">Your Events</h2>
             <div class="accordion" id="accordionExample1">
               <?php
                 $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");

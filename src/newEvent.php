@@ -10,27 +10,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
   <?php include "pages/head.php" ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="../styles/home.css" rel="stylesheet">
   <title>Create event</title>
 </head>
 <body>
-  <main >
-    <div>
-      <div class="row m-0">
-        <div class="col-auto p-0">
-          <nav class="sidebar vh-100 overflow-hidden">
-            <?php include "pages/navMenu.php" ?>
-          </nav>
-        </div>
-        <div class="col p-0">
-          <header class="headerheight shadow-sm">
-          </header>
-          <div class="p-4">
+  <main>
+    <div class="row m-0">
+      <div class="col-auto p-0">
+        <nav class="sidebar vh-100 overflow-hidden">
+          <?php include "pages/navMenu.php" ?>
+        </nav>
+      </div>
+      <div class="col p-0 d-flex flex-column justify-content-between">
+        <div>
+          <header class="headerheight shadow-sm"></header>
+          <div class="mx-5">
             <form class="needs-validation" novalidate method="POST" action="newEvent.php">
-              <h2 class="mb-3">Event Details</h2>
+              <h2 class="my-4">Event Details</h2>
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="eventTitle" class="form-label">Event Title</label>
@@ -71,7 +67,7 @@
                   <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="reqJournalists">
                   <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
-               </div>
+                </div>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="reqPhotographers">
                 <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
@@ -81,11 +77,11 @@
               </div>
             </form>
           </div>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
-            <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-          </footer>
         </div>
-      </div> 
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
+      </div>
     </div>
   </main>
 </body>
