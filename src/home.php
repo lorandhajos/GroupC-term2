@@ -14,7 +14,6 @@
 <html lang="en">
 <head>
   <?php include "pages/head.php" ?>
-  <link href="styles/home.css" rel="stylesheet">
   <title>Home Page</title>
 </head>
 <body>
