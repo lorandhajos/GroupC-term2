@@ -27,6 +27,7 @@ services:
          - MAILER_PASSWORD=${MAILER_PASSWORD}
       volumes:
          - ./src:/var/www/php
+         - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini 
       depends_on:
          mysql:
             condition: service_healthy

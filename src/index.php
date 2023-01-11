@@ -79,7 +79,7 @@
         }
       ?>
       <div class="form-floating mb-3">
-        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Email address" required>
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
