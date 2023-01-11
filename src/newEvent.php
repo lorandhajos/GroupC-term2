@@ -3,7 +3,7 @@
 
   // check if the user is logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../index.php");
+    header("location: /index.php");
   }
 
   // get env variables from config.php and 
@@ -17,10 +17,10 @@
     $stmt->bindValue(":user_id", $_SESSION["user_id"]);
     $stmt->execute();
   } catch (PDOexception $e) {
-    echo $e. "<br>";
+    echo $e . "<br>";
   }
-  $userSpeciality = $stmt->fetch(PDO::FETCH_ASSOC)["speciality"];
 
+  $userSpeciality = $stmt->fetch(PDO::FETCH_ASSOC)["speciality"];
   $creationDate = date("y-m-d");
 
   if (isset($_POST["submit"])) {
@@ -29,24 +29,23 @@
     $eventDate = filter_input(INPUT_POST, "eventDate", FILTER_SANITIZE_SPECIAL_CHARS);
     $eventDesc = filter_input(INPUT_POST, "eventDesc", FILTER_SANITIZE_SPECIAL_CHARS);
     $eventCat = filter_input(INPUT_POST, "eventCategory", FILTER_SANITIZE_SPECIAL_CHARS);
-    $reqJournalists = isset($_POST["reqJournalists"]);
-    $reqPhotographers = isset($_POST["reqPhotographers"]);
+    $reqJournalists = filter_input(INPUT_POST, "reqJournalists", FILTER_SANITIZE_SPECIAL_CHARS);
+    $reqPhotographers = filter_input(INPUT_POST, "reqPhotographers", FILTER_SANITIZE_SPECIAL_CHARS);
     $err = "";
+
     if (empty($eventTitle)) {
       $err = "please enter a title for the event";
-    }
-    elseif (empty($eventDate)) {
+    } elseif (empty($eventDate)) {
       $err = "please provide the date for the event";
-    }
-    elseif (empty($eventDesc)) {
+    } elseif (empty($eventDesc)) {
       $err = "please provide a short event description";
-    }
-    elseif (empty($eventCat)) {
+    } elseif (empty($eventCat)) {
       $err = "please provide an event category";
     }
   
     /*
-    if all the relevant information has been sent, the page should go to a database and insert another event into the Events table
+       if all the relevant information has been sent, the page should go 
+       to a database and insert another event into the Events table
      */
     if (!$err) {
       // add the event into Events table
@@ -59,8 +58,9 @@
         $stmt->bindValue("ev_created", $creationDate); 
         $stmt->execute();
       } catch (PDOexception $e) {
-        echo $e. "<br>";
+        echo $e . "<br>";
       }
+
       // claim the event as the user if said user has photographer or journalist speciality
       if ($userSpeciality !== "editor") {
         try {
@@ -70,12 +70,13 @@
           $stmt->bindValue(':event_id', $conn->lastInsertId());
           $stmt->execute();
         } catch (Exception $e) {
-          echo $e;
+          echo $e . '<br>';
         }
       }
     }
   }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,37 +132,35 @@
                         <label class="form-check-label" for="autoclaim">You will claim the event as a ' . $userSpeciality . '</label>
                       </div>';
                     }
+
                     if ($userSpeciality != "photographer") {
                       echo '
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="reqPhotographers">
                         <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
-                      </div>
-                      ';
+                      </div>';
                     }
+
                     if ($userSpeciality != "journalist") {
                       echo '
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="reqJournalists">
                         <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
-                      </div>
-                      ';
-                      
+                      </div>';
                     }
                   ?>
                 </div>
               <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Event</button>
               <?php
-              if (isset($_POST["submit"]) && !$err) {
-                echo '
-                <div class="alert alert-success">
-                  Event created successfully!
-                </div>';
-              }
-              elseif ($err) {
-                echo '<div class="alert alert-danger">' . $err . '</div>';
-              }
-               ?>
+                if (isset($_POST["submit"]) && !$err) {
+                  echo '
+                  <div class="alert alert-success">
+                    Event created successfully!
+                  </div>';
+                } elseif ($err) {
+                  echo '<div class="alert alert-danger">' . $err . '</div>';
+                }
+              ?>
               </div>
             </form>
           </div>
