@@ -97,7 +97,7 @@
 
                     //check if the directory uploads exists
                     if (is_dir('uploads/') == false){
-                      mkdir('uploads/');
+                      mkdir('uploads/', 0777);
                     }
 
                     //check if the directory already exists. 
