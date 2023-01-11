@@ -92,6 +92,11 @@
                     $uploadOk = 0;
                   }
 
+                  //check if the directory uploads exists
+                  if (is_dir('uploads/') == false){
+                    mkdir('uploads/');
+                  }
+
                   //check if the directory already exists. 
                   if (is_dir($target_dir) == false) {
                     // make dir with the name $target_dir
