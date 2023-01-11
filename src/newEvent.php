@@ -22,6 +22,7 @@
 
   $userSpeciality = $stmt->fetch(PDO::FETCH_ASSOC)["speciality"];
   $creationDate = date("y-m-d");
+  $err = "";
 
   if (isset($_POST["submit"])) {
     // initialize variables from the form
@@ -31,22 +32,21 @@
     $eventCat = filter_input(INPUT_POST, "eventCategory", FILTER_SANITIZE_SPECIAL_CHARS);
     $reqJournalists = filter_input(INPUT_POST, "reqJournalists", FILTER_SANITIZE_SPECIAL_CHARS);
     $reqPhotographers = filter_input(INPUT_POST, "reqPhotographers", FILTER_SANITIZE_SPECIAL_CHARS);
-    $err = "";
 
     if (empty($eventTitle)) {
-      $err = "please enter a title for the event";
+      $err = "Please enter a title for the event";
     } elseif (empty($eventDate)) {
-      $err = "please provide the date for the event";
+      $err = "Please provide the date for the event";
     } elseif (empty($eventDesc)) {
-      $err = "please provide a short event description";
+      $err = "Please provide a short event description";
     } elseif (empty($eventCat)) {
-      $err = "please provide an event category";
+      $err = "Please provide an event category";
     }
   
     /*
-       if all the relevant information has been sent, the page should go 
-       to a database and insert another event into the Events table
-     */
+      if all the relevant information has been sent, the page should go 
+      to a database and insert another event into the Events table
+    */
     if (!$err) {
       // add the event into Events table
       try {
@@ -113,7 +113,7 @@
                 <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
                   <select class="form-select" name="eventCategory">
-                    <option value="">Not Specified</option>
+                    <option value=""></option>
                     <option value="sports">Sports</option>
                     <option value="politics">Politics</option>
                     <option value="disasters">Disasters</option>
@@ -150,21 +150,22 @@
                     }
                   ?>
                 </div>
-              <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Event</button>
-              <?php
-                if (isset($_POST["submit"]) && !$err) {
-                  echo '
-                  <div class="alert alert-success">
-                    Event created successfully!
-                  </div>';
-                } elseif ($err) {
-                  echo '<div class="alert alert-danger">' . $err . '</div>';
-                }
-              ?>
+                <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Event</button>
+                <?php
+                  if (isset($_POST["submit"]) && !$err) {
+                    echo '
+                    <div class="alert alert-success">
+                      Event created successfully!
+                    </div>';
+                  } elseif ($err) {
+                    echo '<div class="alert alert-danger">' . $err . '</div>';
+                  }
+                ?>
               </div>
             </form>
           </div>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
+        </div>
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
           <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
         </footer>
       </div>
