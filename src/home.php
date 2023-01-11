@@ -72,13 +72,27 @@
                   </div>";
                   $yourEventId ++;
                 } 
+                
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   $eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
                   $target_dir = 'uploads/' . $eventId . '/';
                   $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
                   $uploadOk = 1;
                   $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                 
+                     
+                  //connection to make an array with all the eventid's of the events that you have claimed
+                  $stmt = $conn->prepare("SELECT Claims.event_id FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
+                  $stmt->bindValue("id", $_SESSION["user_id"]);
+                  $stmt->execute();
+                  $test = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+                  var_dump($test);
+                  
+                  //check if you are assigned to the event, so whether or not the value hasnt been changed with f12
+                  if(!in_array($eventId, $test)) {
+                    echo "You don't have the rights to upload to this event";
+                    $uploadOk = 0;
+                  }
+
                   //check if the directory already exists. 
                   if (is_dir($target_dir) == false) {
                       // make dir with the name $target_dir
@@ -120,7 +134,10 @@
                       echo "Sorry,x there was an error uploading your file. ";}
                     }
                   }
-                  // unset($target_dir, $target_file, $uploadOk, $FileType, $eventId);
+                  
+                  //still needs put down a check for whether or not the logged in user has access to the event that 
+                  //it is trying to upload to since that is determined by a value in the form, which you can easily change wth f12
+
                   var_dump($eventId);
                 }
               ?>
