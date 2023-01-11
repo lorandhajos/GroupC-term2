@@ -20,7 +20,7 @@
     echo $e. "<br>";
   }
   $userSpeciality = $stmt->fetch(PDO::FETCH_ASSOC)["speciality"];
-  
+
   $creationDate = date("y-m-d");
 
   if (isset($_POST["submit"])) {
@@ -67,7 +67,7 @@
           $sql = "INSERT INTO Claims(user_id, event_id) VALUES (:user_id, :event_id)";
           $stmt = $conn->prepare($sql);
           $stmt->bindValue(':user_id', $_SESSION["user_id"]);
-          $stmt->bindValue(':event_id', $eventID);
+          $stmt->bindValue(':event_id', $conn->lastInsertId());
           $stmt->execute();
         } catch (Exception $e) {
           echo $e;
