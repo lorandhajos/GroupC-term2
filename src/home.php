@@ -85,7 +85,6 @@
                   $stmt->bindValue("id", $_SESSION["user_id"]);
                   $stmt->execute();
                   $test = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-                  var_dump($test);
                   
                   //check if you are assigned to the event, so whether or not the value hasnt been changed with f12
                   if(!in_array($eventId, $test)) {
@@ -134,11 +133,6 @@
                       echo "Sorry,x there was an error uploading your file. ";}
                     }
                   }
-                  
-                  //still needs put down a check for whether or not the logged in user has access to the event that 
-                  //it is trying to upload to since that is determined by a value in the form, which you can easily change wth f12
-
-                  var_dump($eventId);
                 }
               ?>
             </div>
