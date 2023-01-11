@@ -70,17 +70,17 @@
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="eventTitle" class="form-label">Event Title</label>
-                  <input type="text" class="form-control" name ="eventName" id="eventTitle" value="<?php echo $eventName; ?>" required>
+                  <input type="text" class="form-control" name="eventName" id="eventTitle" value="<?php echo $eventName; ?>" required>
                 </div>
                 <div class="col-sm-6">
                   <label for="eventDate" class="form-label">Date</label>
-                  <input type="text" class="form-control" name ="eventDate" id="eventDate" value="<?php echo $eventDate; ?>" required>
+                  <input type="date" class="form-control" name="eventDate" id="eventDate" value="<?php echo $eventDate; ?>" required>
                 </div>
                 <div class="col-12">
                   <label for="eventDesc" class="form-label">Details</label>
-                  <textarea class="form-control" id="eventDesc" name ="description" rows="5"><?php echo $description; ?></textarea>
+                  <textarea class="form-control" id="eventDesc" name="description" rows="5"><?php echo $description; ?></textarea>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
                   <select class="form-select" id="eventCategory" required>
                     <option value="">Not Specified</option>
@@ -90,19 +90,19 @@
                     <option>Health</option>
                   </select>
                 </div>
+                <div class="col-md-6">
+                  <label>Claims</label>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="reqJournalists">
+                    <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="reqPhotographers">
+                    <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
+                  </div>
+                </div>
+                <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit">Change Event</button>
               </div>
-              <hr class="my-4">
-              <h4 class="mb-3">Claims</h4>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="reqJournalists">
-                <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="reqPhotographers">
-                <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
-              </div>
-              <hr class="my-4">
-              <button class="w-100 btn btn-primary btn-lg" type="submit">Change Event</button>
             </form>
           </div>
         </div>
