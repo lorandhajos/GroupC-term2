@@ -56,80 +56,15 @@
                         <p><strong>Event created on:</strong> $creationDate</p>
                         <div class='d-flex justify-content-between'>
                           <div class='input-group flex-nowrap' style='width: 150px;'>
-                            <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                            <p class='form-control mb-0'>$eventDate</p>
+                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                          <p class='form-control mb-0'>$eventDate</p>
                           </div>
-                          <form action='home.php' method='post' enctype='multipart/form-data'>
-                            Select file to upload:
-                            <input type='file' name='fileToUpload' id='fileToUpload' multiple>
-                            <input type='submit' value='Upload File' name='submit' class='btn btn-primary'>
-                            <input type='hidden' name='eventId' value='$eventId'>
-                          </form>
+                          <a href='home.php' class='btn btn-primary' role='button'>Upload Files</a>
                         </div>
                       </div>
                     </div>
                   </div>";
                   $yourEventId ++;
-                } 
-                
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                  $eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
-                  $target_dir = 'uploads/' . $eventId . '/';
-                  $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
-                  $error = '';
-                  $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                     
-                  //connection to make an array with all the eventid's of the events that you have claimed
-                  $stmt = $conn->prepare("SELECT Claims.event_id FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
-                  $stmt->bindValue("id", $_SESSION["user_id"]);
-                  $stmt->execute();
-                  $test = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-                  
-                  //check if a file was selected
-                  if ($_FILES['fileToUpload']['size'] == 0 && empty($_FILES['fileToUpload']['name']) ){
-                    $error = "No file was selected";
-                  } else {
-                    //check if you are assigned to the event, so whether or not the value hasnt been changed with f12
-                    if(!in_array($eventId, $test)) {
-                      $error = "You don't have the rights to upload to this event";
-                    }
-
-                    //check if the directory uploads exists
-                    if (is_dir('uploads/') == false){
-                      mkdir('uploads/', 0777);
-                    }
-
-                    //check if the directory already exists. 
-                    if (is_dir($target_dir) == false) {
-                      // make dir with the name $target_dir
-                      mkdir($target_dir);
-                    }
-                            
-                    //Check if file already exists
-                    if (file_exists($target_file)) {
-                      $error = "Sorry, file already exists. ";
-                    }
-
-                    //Check whether the file size is above 128mb
-                    if ($_FILES["fileToUpload"]["size"] > 128000000) {
-                      $error = "Sorry, your file is too large, maximum filesize is 128mb. ";
-                    }
-                    
-                    //Allow certain file formats
-                    if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
-                    && $FileType != "docx" && $FileType != "txt" && $FileType != "odt") {
-                      $error = "Sorry, your files are not allowed. ";
-                    }                    
-                  }
-
-                  if (!empty($error)) {
-                    echo "$error";
-                  } else {  
-                    //if error is empty, try to upload file
-                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                      echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                    }
-                  }
                 }
               ?>
             </div>
@@ -163,13 +98,12 @@
                           <div class='input-group flex-nowrap' style='width: 150px;'>
                           <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                           <p class='form-control mb-0'>$eventDate</p>
-                          </div>  
+                          </div>
                           <form action='pages/claimEvents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                           </form>
-                        </div>
-                        <a href='editEvent.php?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>
+                        </div>" . ($_SESSION["speciality"]=="editor" ? "<a href='editEvent.php?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>" : "") . "
                       </div>
                     </div>
                   </div>
