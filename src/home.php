@@ -94,8 +94,8 @@
 
                   //check if the directory already exists. 
                   if (is_dir($target_dir) == false) {
-                      // make dir with the name $target_dir
-                      mkdir($target_dir);
+                    // make dir with the name $target_dir
+                    mkdir($target_dir);
                   }
                           
                   //Check if file already exists
@@ -112,9 +112,7 @@
                   
                   //Allow certain file formats
                   if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
-                  && $FileType != "gif" && $FileType != "docx" && $FileType != "txt" 
-                  && $FileType != "odt" && $FileType != "dotx" && $FileType != "doc" 
-                  && $FileType != "docm") {
+                  && $FileType != "docx" && $FileType != "txt" && $FileType != "odt") {
                     echo "Sorry, your files are not allowed. ";
                     $uploadOk = 0;
                   }
@@ -122,13 +120,13 @@
                   //Check if $uploadOk is set to 0 by an error
                   if ($uploadOk == 0) {
                     echo "Sorry, your file was not uploaded. ";
-                  //if everything is ok, try to upload file
                   } else {
+                    //if everything is ok, try to upload file
                     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                       echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
                     } else {
                       if ( !empty($_FILES)) {
-                      echo "Sorry,x there was an error uploading your file. ";}
+                      echo "Sorry, there was an error uploading your file. ";}
                     }
                   }
                 }
