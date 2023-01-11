@@ -60,7 +60,7 @@
     }
     $creationDate = date("y-m-d");
     /*
-    if all the relevant information has been sent, the page should go to a database and create it
+    if all the relevant information has been sent, the page should go to a database and insert another event into the Events table
      */
     if (count($errs) == 0) {
       // generate an event ID by using the maximum ID the database and adding 1
@@ -156,10 +156,10 @@
                   <label for="eventCategory" class="form-label">Event Category</label>
                   <select class="form-select" name="eventCategory" required>
                     <option value="">Not Specified</option>
-                    <option>Sports</option>
-                    <option>Politics</option>
-                    <option>Disasters</option>
-                    <option>Health</option>
+                    <option value="sports">Sports</option>
+                    <option value="politics">Politics</option>
+                    <option value="disasters">Disasters</option>
+                    <option value="health">Health</option>
                   </select>
                   <div class="invalid-feedback">
                     Please select a valid category
