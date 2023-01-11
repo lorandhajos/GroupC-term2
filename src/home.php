@@ -37,12 +37,11 @@
 
                 $yourEventId = 0;
                 while ($results = $stmt->fetch()) {
-                
-                $eventName = $results["name"];
-                $eventId = $results["event_id"];
-                $description = $results["description"];
-                $creationDate = $results["creation_date"];
-                $eventDate = $results["event_date"];
+                  $eventName = $results["name"];
+                  $eventId = $results["event_id"];
+                  $description = $results["description"];
+                  $creationDate = $results["creation_date"];
+                  $eventDate = $results["event_date"];
 
                   echo "
                   <div class='accordion-item'>
