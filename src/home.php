@@ -103,15 +103,13 @@
                     echo "Sorry, file already exists. ";
                     $uploadOk = 0;
                   }
-              
-                  //php.ini still needs to be changed to allow files more than 2mb!!!
 
-                  // // Check file size
-                  // if ($_FILES["fileToUpload"]["size"] > 500000) {
-                  //   echo "Sorry, your file is too large. ";
-                  //   $uploadOk = 0;
-                  // }
-              
+                  // // Check whether the file size is above 128mb
+                  if ($_FILES["fileToUpload"]["size"] > 128000000) {
+                    echo "Sorry, your file is too large, maximum filesize is 128mb. ";
+                    $uploadOk = 0;
+                  }
+                  
                   // Allow certain file formats
                   if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
                   && $FileType != "gif" && $FileType != "docx" && $FileType != "txt" 
