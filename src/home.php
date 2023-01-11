@@ -86,52 +86,58 @@
                   $stmt->execute();
                   $test = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
                   
-                  //check if you are assigned to the event, so whether or not the value hasnt been changed with f12
-                  if(!in_array($eventId, $test)) {
-                    echo "You don't have the rights to upload to this event";
-                    $uploadOk = 0;
-                  }
-
-                  //check if the directory uploads exists
-                  if (is_dir('uploads/') == false){
-                    mkdir('uploads/');
-                  }
-
-                  //check if the directory already exists. 
-                  if (is_dir($target_dir) == false) {
-                    // make dir with the name $target_dir
-                    mkdir($target_dir);
-                  }
-                          
-                  //Check if file already exists
-                  if (file_exists($target_file)) {
-                    echo "Sorry, file already exists. ";
-                    $uploadOk = 0;
-                  }
-
-                  //Check whether the file size is above 128mb
-                  if ($_FILES["fileToUpload"]["size"] > 128000000) {
-                    echo "Sorry, your file is too large, maximum filesize is 128mb. ";
-                    $uploadOk = 0;
-                  }
-                  
-                  //Allow certain file formats
-                  if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
-                  && $FileType != "docx" && $FileType != "txt" && $FileType != "odt") {
-                    echo "Sorry, your files are not allowed. ";
-                    $uploadOk = 0;
-                  }
-                
-                  //Check if $uploadOk is set to 0 by an error
-                  if ($uploadOk == 0) {
-                    echo "Sorry, your file was not uploaded. ";
+                  //check if a file was selected
+                  if ($_FILES['fileToUpload']['size'] == 0 && empty($_FILES['fileToUpload']['name']) ){
+                    echo "No file was selected";
                   } else {
-                    //if everything is ok, try to upload file
-                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                      echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+
+                    //check if you are assigned to the event, so whether or not the value hasnt been changed with f12
+                    if(!in_array($eventId, $test)) {
+                      echo "You don't have the rights to upload to this event";
+                      $uploadOk = 0;
+                    }
+
+                    //check if the directory uploads exists
+                    if (is_dir('uploads/') == false){
+                      mkdir('uploads/');
+                    }
+
+                    //check if the directory already exists. 
+                    if (is_dir($target_dir) == false) {
+                      // make dir with the name $target_dir
+                      mkdir($target_dir);
+                    }
+                            
+                    //Check if file already exists
+                    if (file_exists($target_file)) {
+                      echo "Sorry, file already exists. ";
+                      $uploadOk = 0;
+                    }
+
+                    //Check whether the file size is above 128mb
+                    if ($_FILES["fileToUpload"]["size"] > 128000000) {
+                      echo "Sorry, your file is too large, maximum filesize is 128mb. ";
+                      $uploadOk = 0;
+                    }
+                    
+                    //Allow certain file formats
+                    if($FileType != "jpg" && $FileType != "png" && $FileType != "jpeg"
+                    && $FileType != "docx" && $FileType != "txt" && $FileType != "odt") {
+                      echo "Sorry, your files are not allowed. ";
+                      $uploadOk = 0;
+                    }
+                  
+                    //Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                      echo "Sorry, your file was not uploaded. ";
                     } else {
-                      if ( !empty($_FILES)) {
-                      echo "Sorry, there was an error uploading your file. ";}
+                      //if everything is ok, try to upload file
+                      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                        echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                      } else {
+                        if ( !empty($_FILES)) {
+                        echo "Sorry, there was an error uploading your file. ";}
+                      }
                     }
                   }
                 }
