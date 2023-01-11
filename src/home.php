@@ -59,6 +59,12 @@
                           <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
                           <p class='form-control mb-0'>$eventDate</p>
                           </div>
+                          <form action='home.php' method='post' enctype='multipart/form-data'>
+                            Select file to upload:
+                            <input type='file' name='fileToUpload' id='fileToUpload' multiple>
+                            <input type='submit' value='Upload File' name='submit' class='btn btn-primary'>
+                            <input type='hidden' name='eventId' value='$eventId'>
+                          </form>
                           <a href='home.php' class='btn btn-primary' role='button'>Upload Files</a>
                         </div>
                       </div>
