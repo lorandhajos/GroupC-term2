@@ -13,7 +13,7 @@
 	  if (password_verify($curr_pass, $result->password)) {
         echo "yes";
 	  } else {
-        echo"no";
+        echo "no";
 	  }  
 	}
   }
@@ -49,16 +49,16 @@
 	      </div>
           <hr class="my-4">
 	      <div>
-	        <p><strong>Change Password</strong></p>
+	        <p style="font-size: 2rem;"><strong>Change Password</strong></p><br>
 	          <form action="profile.php" method="POST">
 	            <div class="col-sm-6">
-                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
+                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value=""><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="">
+		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value=""><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
+		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value=""><br>
 	            </div>
 	            <button class="btn btn-primary" type="submit">Submit</button>
 	          </form>
