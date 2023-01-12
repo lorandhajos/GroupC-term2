@@ -83,11 +83,11 @@
                 <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
                   <select class="form-select" id="eventCategory" required>
-                    <option value="">Not Specified</option>
-                    <option>Sports</option>
-                    <option>Politics</option>
-                    <option>Disasters</option>
-                    <option>Health</option>
+                    <option value=""></option>
+                    <option value="sports">Sports</option>
+                    <option value="politics">Politics</option>
+                    <option value="disasters">Disasters</option>
+                    <option value="health">Health</option>
                   </select>
                 </div>
                 <div class="col-md-6">
