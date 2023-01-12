@@ -7,14 +7,15 @@
 	$test->bindParam(':email', $_SESSION['email']);   
 	$test->execute();
 	
-    var_dump($verify);	
-	
-	$curr_pass = filter_input(INPUT_POST, "CurrentPassword");
-	if (password_verify($curr_pass, $verify)) {
-      echo "yes";
-	} else {
-      echo"no";
-	}  
+	if ($result = $test->fetch(PDO::FETCH_OBJ)) {
+      $curr_pass = filter_input(INPUT_POST, "currentPassword");
+
+	  if (password_verify($curr_pass, $result->password)) {
+        echo "yes";
+	  } else {
+        echo"no";
+	  }  
+	}
   }
 ?>
 
@@ -33,46 +34,41 @@
 		<?php include "navMenu.php" ?>
 		</nav>
 	  </div>
-    <div class="col p-0">
-	  <header class="py-4 shadow-sm">
-   	  </header>
-  <div class="p-4">
-    <div>
-	  <?php
-		echo "<strong>Name:</strong>";
-	    echo "<input type='text' class='form-control' value='" . $_SESSION['name'] . "' disabled>";
-		echo "<strong>Email:</strong>";
-		echo "<input type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
-		echo "<strong>Specialty:</strong>";
-		echo "<input type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
-	  ?>
-	</div>
-  <hr class="my-4">
-	<div>
-	  <p><strong>Change Password</strong></p>
-	  <form action="profile.php" method="POST">
-	  <div class="col-sm-6">
-		<input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
+      <div class="col p-0">
+	    <header class="py-4 shadow-sm"></header>
+        <div class="p-4">
+          <div>
+	        <?php
+		      echo "<strong>Name:</strong>";
+	          echo "<input type='text' class='form-control' value='" . $_SESSION['name'] . "' disabled>";
+              echo "<strong>Email:</strong>";
+		      echo "<input type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
+		      echo "<strong>Specialty:</strong>";
+		      echo "<input type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
+	        ?>
+	      </div>
+          <hr class="my-4">
+	      <div>
+	        <p><strong>Change Password</strong></p>
+	          <form action="profile.php" method="POST">
+	            <div class="col-sm-6">
+                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="">
+	            </div>
+	            <div class="col-sm-6">
+		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="">
+	            </div>
+	            <div class="col-sm-6">
+		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
+	            </div>
+	            <button class="btn btn-primary" type="submit">Submit</button>
+	          </form>
+	      </div>
+        </div>
+	    <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
 	  </div>
-		<p></p>
-	  <div class="col-sm-6">
-		<input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="">
-	  </div>
-		<p></p>
-	  <div class="col-sm-6">
-		<input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="">
-	  </div>
-	    <p></p>
-	  <button class="btn btn-primary" type="submit">Submit</button>
-	  </form>
-	</div>
-  </div>
-        
-	  <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
-		<p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-	  </footer>
-	</div>
 	</div>
   </main>
 </body>
-</html> 
+</html>
