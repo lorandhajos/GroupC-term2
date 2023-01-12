@@ -187,7 +187,7 @@
               ?>
             </div> 
             <h2 class="mt-4 mb-4">Claimed Events</h2>
-            <div class="accordion" id="accordionExample2">
+            <div class="accordion" id="accordionExample3">
               <?php
                 $stmt = $conn->prepare("SELECT * FROM Events WHERE EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
                 $stmt->bindColumn("event_id", $eventId);
