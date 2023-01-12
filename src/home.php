@@ -53,19 +53,22 @@
                     <div id='collapseYourEvent$yourEventId' class='accordion-collapse collapse' aria-labelledby='headingYourEvent$yourEventId' data-bs-parent='#accordionExample1'>
                       <div class='accordion-body'>
                         <p>$description</p>
-                        <p><strong>Event created on:</strong> $creationDate</p>
-                        <div class='d-flex justify-content-between'>
-                          <div class='input-group flex-nowrap' style='width: 150px;'>
-                            <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                            <p class='form-control mb-0'>$eventDate</p>
-                          </div>
-                          <form action='home.php' method='post' enctype='multipart/form-data'>
-                            Select file to upload:
-                            <input type='file' name='fileToUpload' id='fileToUpload' multiple>
-                            <input type='submit' value='Upload File' name='submit' class='btn btn-primary'>
-                            <input type='hidden' name='eventId' value='$eventId'>
-                          </form>
-                          <a href='home.php' class='btn btn-primary' role='button'>Upload Files</a>
+                          <div class='d-flex justify-content-between'>
+                            <div class='d-flex'>
+                              <div class='input-group flex-nowrap me-2'>
+                                  <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-plus'></i></span>
+                                  <p class='form-control mb-0'>$creationDate</p>
+                              </div>
+                              <div class='input-group flex-nowrap'>
+                                <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-days'></i></span>
+                                <p class='form-control mb-0'>$eventDate</p>
+                              </div>
+                            </div>
+                            <form action='home.php' method='post' enctype='multipart/form-data'>
+                              <input type='file' name='fileToUpload' id='fileToUpload' multiple>
+                              <input type='submit' value='Upload' name='submit' class='btn btn-primary'>
+                              <input type='hidden' name='eventId' value='$eventId'>
+                            </form>
                         </div>
                       </div>
                     </div>
@@ -159,12 +162,17 @@
                     <div id='collapse$accordionId' class='accordion-collapse collapse' aria-labelledby='heading$accordionId' data-bs-parent='#accordionExample2'>
                       <div class='accordion-body'>
                         <p>$description</p>
-                        <p><strong>Event created on:</strong> $creationDate</p>
                         <div class='d-flex justify-content-between'>
-                          <div class='input-group flex-nowrap' style='width: 150px;'>
-                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                          <p class='form-control mb-0'>$eventDate</p>
-                          </div>
+                            <div class='d-flex'>
+                              <div class='input-group flex-nowrap me-2'>
+                                  <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-plus'></i></span>
+                                  <p class='form-control mb-0'>$creationDate</p>
+                              </div>
+                              <div class='input-group flex-nowrap'>
+                                <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-days'></i></span>
+                                <p class='form-control mb-0'>$eventDate</p>
+                              </div>
+                            </div>
                           <form action='pages/claimEvents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
@@ -203,11 +211,16 @@
                     <div id='collapseClaimed$claimedId' class='accordion-collapse collapse' aria-labelledby='headingClaimed$claimedId' data-bs-parent='#accordionExample3'>
                       <div class='accordion-body'>
                         <p>$description</p>
-                        <p><strong>Event created on:</strong> $creationDate</p>
                         <div class='d-flex justify-content-between'>
-                          <div class='input-group flex-nowrap' style='width: 150px;'>
-                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                          <p class='form-control mb-0'>$eventDate</p>
+                          <div class='d-flex'>
+                            <div class='input-group flex-nowrap me-2'>
+                                <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-plus'></i></span>
+                                <p class='form-control mb-0'>$creationDate</p>
+                            </div>
+                            <div class='input-group flex-nowrap'>
+                              <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-days'></i></span>
+                              <p class='form-control mb-0'>$eventDate</p>
+                            </div>
                           </div>
                         </div>
                       </div>
