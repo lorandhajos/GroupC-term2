@@ -5,6 +5,10 @@
     header("location: index.php");
   }
 
+  if ($_SESSION["speciality"] != "editor") {
+    header("location: index.php");
+  }
+
   include_once("pages/config.php");
 
   if(isset($_GET['edit'])) {
