@@ -37,35 +37,36 @@
       <div class="col p-0">
 	    <header class="py-4 shadow-sm"></header>
         <div class="p-4">
-          <div>
+          <div><br>
+		  
 	        <?php
 		      echo "<strong>Name:</strong>";
-	          echo "<input type='text' class='form-control' value='" . $_SESSION['name'] . "' disabled>";
+	          echo "<input type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
               echo "<strong>Email:</strong>";
 		      echo "<input type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
 		      echo "<strong>Specialty:</strong>";
 		      echo "<input type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
 	        ?>
-	      </div>
+	      </div><br>
           <hr class="my-4">
 	      <div>
 	        <p style="font-size: 2rem;"><strong>Change Password</strong></p><br>
 	          <form action="profile.php" method="POST">
 	            <div class="col-sm-6">
-                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value=""><br>
+                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value=""><br>
+		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value=""><br>
+		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
 	            </div>
 	            <button class="btn btn-primary" type="submit">Submit</button>
 	          </form>
 	      </div>
         </div>
 	    <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
-          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+          <p class="mb-0 me-4">Copyright © 2022- Gemorskos. All rights reserved</p>
         </footer>
 	  </div>
 	</div>
