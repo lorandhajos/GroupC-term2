@@ -56,8 +56,8 @@
                         <p><strong>Event created on:</strong> $creationDate</p>
                         <div class='d-flex justify-content-between'>
                           <div class='input-group flex-nowrap' style='width: 150px;'>
-                          <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
-                          <p class='form-control mb-0'>$eventDate</p>
+                            <span class='input-group-text' id='addon-wrapping'><i class='fa-solid fa-calendar-days'></i></span>
+                            <p class='form-control mb-0'>$eventDate</p>
                           </div>
                           <form action='home.php' method='post' enctype='multipart/form-data'>
                             Select file to upload:
