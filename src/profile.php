@@ -4,17 +4,29 @@
 
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $test = $conn->prepare("SELECT password FROM Users WHERE email=:email");
-	$test->bindParam(':email', $_SESSION['email']);   
+	$test->bindParam(':email', $_SESSION['email']);
 	$test->execute();
 	
 	if ($result = $test->fetch(PDO::FETCH_OBJ)) {
       $curr_pass = filter_input(INPUT_POST, "currentPassword");
-
-	  if (password_verify($curr_pass, $result->password)) {
-        echo "yes";
+	  $new_pass= filter_input(INPUT_POST, "newPassword");
+	  $confirm_pass= filter_input(INPUT_POST, "confirmPassword");
+	  if($new_pass==$confirm_pass){
+	   if (password_verify($curr_pass, $result->password)) {
+		   //ONLY DECOMMENT IF YOU ENCRYPTED PASSWORD
+		   //$new_pass_crypt=password_hash($new_pass, PASSWORD_BCRYPT);
+		   $query_change=$conn->prepare("UPDATE Users SET password=:new_pass WHERE email=:user_email AND name=:user_name");
+		   $query_change->bindParam(':new_pass', $new_pass_crypt);
+		   $query_change->bindParam(':user_email', $_SESSION['email']);
+		   $query_change->bindParam(':user_name', $_SESSION['name']);
+		   $query_change->execute();
+		   echo"Password changed successfully";
+	   } else {
+         echo "no";
+	    }
 	  } else {
-        echo "no";
-	  }  
+		  echo"<h5>Passwords not matching</h5>";
+	  }
 	}
   }
 ?>
@@ -41,11 +53,11 @@
 		  
 	        <?php
 		      echo "<strong>Name:</strong>";
-	          echo "<input type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
+	          echo "<input style='width:42.6vw;'  type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
               echo "<strong>Email:</strong>";
-		      echo "<input type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
+		      echo "<input style='width:42.6vw;' type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
 		      echo "<strong>Specialty:</strong>";
-		      echo "<input type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
+		      echo "<input style='width:42.6vw;' type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
 	        ?>
 	      </div><br>
           <hr class="my-4">
