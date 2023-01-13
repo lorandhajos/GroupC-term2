@@ -7,7 +7,7 @@
     </div>
     <div>
       <div class="profile">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none p-3">
+        <a href="profile" class="d-flex align-items-center text-white text-decoration-none p-3">
           <?php echo "<strong>" . $_SESSION['name'] . "</strong>";?>
         </a>
       </div>
@@ -23,10 +23,10 @@
           if ($_SESSION["speciality"] == "editor") {
             echo '
             <li class="nav-item">
-              <a href="manageAccounts.php" class="nav-link">Manage accounts</a>
+              <a href="manageAccounts" class="nav-link">Manage accounts</a>
             </li>
             <li class="nav-item">
-              <a href="createAccount.php" class="nav-link">Create account</a>
+              <a href="createAccount" class="nav-link">Create account</a>
             </li>'; 
           }
         ?>

@@ -3,12 +3,12 @@
 
   // check if the user is logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../index.php");
+    header("location: /");
   }
 
   //only the admins should access this page, all others get redirected towards index.php
   if ($_SESSION["speciality"] != "editor") {
-    header("location: index.php");
+    header("location: /");
   }
 
   // get env variables and database connection from config.php
@@ -49,7 +49,7 @@
           <header class="headerheight shadow-sm"></header>
           <div class="container">
             <h2 class="my-4">Manage Accounts</h2>
-            <form action="manageAccounts.php" method="POST">
+            <form action="manageAccounts" method="POST">
               <?php
                 try {
                   $sql = "SELECT * FROM Users;";
