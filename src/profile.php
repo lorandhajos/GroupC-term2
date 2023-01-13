@@ -65,13 +65,13 @@
 						<p style="font-size: 1.3rem;"><strong>Change Password</strong></p><br>
 							<form action="profile.php" method="POST">
 								<div class="col-sm-6">
-									<input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
+									<input type="password" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 								</div>
 								<div class="col-sm-6">
-									<input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
+									<input type="password" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 								</div>
 								<div class="col-sm-6">
-									<input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
+									<input type="password" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 								</div>
 								<button class="btn btn-primary" type="submit">Submit</button>
 							</form>
