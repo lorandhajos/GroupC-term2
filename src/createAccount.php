@@ -96,9 +96,10 @@
                 <div class="col-md-6">
                   <label for="accountType" class="form-label">Account Type</label>
                   <select class="form-select" name="accountType">
-                    <option value="editor">Editor</option>
+                    <option value=""></option>
                     <option value="journalist">Journalist</option>
                     <option value="photographer">Photographer</option>
+                    <option value="editor">Editor</option>
                   </select>
                 </div>
               <p><button class="w-auto mt-3 btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Account</button></p>

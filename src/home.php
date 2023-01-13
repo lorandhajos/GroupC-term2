@@ -28,7 +28,11 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="container">
-            <h2 class="my-4">Your Events</h2>
+            <?php
+              if ($_SESSION["speciality"]=="journalist" || $_SESSION["speciality"]=="photographer") {
+                echo "<h2 class='my-4'>Your Events</h2>";
+              }
+            ?>
             <div class="accordion" id="accordionExample1">
               <?php
                 $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
@@ -176,7 +180,7 @@
                           ". ($_SESSION["speciality"]=="editor" ? "<a href='editEvent?edit=$eventId' class='btn btn-primary' role='button'>Edit</a>" : "") . "
                           <form action='claimEvents' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
-                            <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
+                            " . ($_SESSION["speciality"]=="journalist" || $_SESSION["speciality"]=="photographer" ? "<input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>" : "") . "
                           </form>
                         </div>
                       </div>
