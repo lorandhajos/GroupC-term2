@@ -1,7 +1,7 @@
 <div class="d-flex flex-column flex-shrink-0 text-bg-dark h-100 justify-content-between">
   <div>
     <div class="brandlink">
-      <a href="#" class="d-flex m-3 text-white text-decoration-none">
+      <a href="home" class="d-flex m-3 text-white text-decoration-none">
         <span class="fs-4"><img src="../images/bootstrap-logo.svg" alt="G" width="44" height="44">emorskos</span>
       </a>
     </div>

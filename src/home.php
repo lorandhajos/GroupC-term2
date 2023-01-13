@@ -28,7 +28,11 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="mx-5">
-            <h2 class='my-4'>Your Events</h2>
+            <?php
+              if ($_SESSION["speciality"]=="journalist" || $_SESSION["speciality"]=="photographer") {
+                echo "<h2 class='my-4'>Your Events</h2>";
+              }
+            ?>
             <div class="accordion" id="accordionExample1">
               <?php
                 $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
