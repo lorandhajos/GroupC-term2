@@ -10,17 +10,6 @@
   // setup a database connection using a PDO
   include("pages/config.php");
 
-  //get the user speciality for future use
-  try {
-    $sql = "SELECT speciality FROM Users WHERE user_id=:user_id;";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(":user_id", $_SESSION["user_id"]);
-    $stmt->execute();
-  } catch (PDOexception $e) {
-    echo $e . "<br>";
-  }
-
-  $userSpeciality = $stmt->fetch(PDO::FETCH_ASSOC)["speciality"];
   $creationDate = date("y-m-d");
   $err = "";
 
@@ -41,6 +30,8 @@
       $err = "Please provide a short event description";
     } elseif (empty($eventCat)) {
       $err = "Please provide an event category";
+    } elseif ($_SESSION["speciality"] === "editor" && !$reqJournalists && !$reqPhotographers) {
+      $err = "Either the journalists or the photographers should be able to claim the event";
     }
   
     /*
@@ -49,29 +40,30 @@
     */
     if (!$err) {
       // add the event into Events table
+      if ($_SESSION["speciality"] !== "photographer") {
+        $photographerClaim = $reqPhotographers ? $claimVacant : $claimRestricted;
+      } else {
+        $photographerClaim = $_SESSION['user_id'];
+      }
+      if ($_SESSION["speciality"] !== "journalist") {
+        $journalistClaim = $reqJournalists ? $claimVacant : $claimRestricted;
+      } else {
+        $journalistClaim = $_SESSION['user_id'];
+      }
+
       try {
-        $sql = "INSERT INTO Events (name, description, event_date, creation_date) VALUES (:event_title, :event_desc, :ev_date, :ev_created)";
+        $sql = "INSERT INTO Events (name, description, event_date, creation_date, journalist_id, photographer_id, event_category) VALUES (:event_title, :event_desc, :ev_date, :ev_created, :journalist_claim, :photographer_claim, :event_cat)";
         $stmt=$conn->prepare($sql);
         $stmt->bindValue("event_title", $eventTitle);
         $stmt->bindValue("event_desc", $eventDesc);
         $stmt->bindValue("ev_date", $eventDate);
-        $stmt->bindValue("ev_created", $creationDate); 
+        $stmt->bindValue("ev_created", $creationDate);
+        $stmt->bindValue("journalist_claim", $journalistClaim);
+        $stmt->bindValue("photographer_claim", $photographerClaim);
+        $stmt->bindValue("event_cat", $eventCat);
         $stmt->execute();
       } catch (PDOexception $e) {
         echo $e . "<br>";
-      }
-
-      // claim the event as the user if said user has photographer or journalist speciality
-      if ($userSpeciality !== "editor") {
-        try {
-          $sql = "INSERT INTO Claims(user_id, event_id) VALUES (:user_id, :event_id)";
-          $stmt = $conn->prepare($sql);
-          $stmt->bindValue(':user_id', $_SESSION["user_id"]);
-          $stmt->bindValue(':event_id', $conn->lastInsertId());
-          $stmt->execute();
-        } catch (Exception $e) {
-          echo $e . '<br>';
-        }
       }
     }
   }
@@ -95,7 +87,7 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="mx-5">
-            <form class="needs-validation" novalidate method="POST" action="newEvent">
+            <form class="needs-validation" novalidate method="POST" action="newEvent.php">
               <h2 class="my-4">Event Details</h2>
               <div class="row g-3">
                 <div class="col-sm-6">
@@ -125,15 +117,15 @@
                   <?php
                     // the photographers and journalists are allowed to create events, but they automatically claim it upon creation
                     // output the warning and the necessary buttons to allow other roles to claim the event
-                    if ($userSpeciality != "editor") {
+                    if ($_SESSION["speciality"] != "editor") {
                       echo '
                       <div class="form-check">
                         <input type="checkbox" name="autoclaim" class="form-check-input" checked disabled>
-                        <label class="form-check-label" for="autoclaim">You will claim the event as a ' . $userSpeciality . '</label>
+                        <label class="form-check-label" for="autoclaim">You will claim the event as a ' . $_SESSION["speciality"] . '</label>
                       </div>';
                     }
 
-                    if ($userSpeciality != "photographer") {
+                    if ($_SESSION["speciality"] != "photographer") {
                       echo '
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="reqPhotographers">
@@ -141,7 +133,7 @@
                       </div>';
                     }
 
-                    if ($userSpeciality != "journalist") {
+                    if ($_SESSION["speciality"] != "journalist") {
                       echo '
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="reqJournalists">
