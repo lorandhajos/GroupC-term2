@@ -80,7 +80,7 @@
                         $query_change->bindParam(':user_name', $_SESSION['name']);
                         $query_change->execute();
 
-                        echo "<div class='alert alert-success my-3'>Account created successfully!</div>";
+                        echo "<div class='alert alert-success my-3'>Password Change Successfully!</div>";
                       }
                     } else {
                       echo "<div class='alert alert-danger my-3'>Passwords don't match</div>";
