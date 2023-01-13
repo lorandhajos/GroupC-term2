@@ -3,7 +3,7 @@
 
   // check if the user is logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: /index.php");
+    header("location: /index");
   }
 
   // get env variables from config.php and 
@@ -95,7 +95,7 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="mx-5">
-            <form class="needs-validation" novalidate method="POST" action="newEvent.php">
+            <form class="needs-validation" novalidate method="POST" action="newEvent">
               <h2 class="my-4">Event Details</h2>
               <div class="row g-3">
                 <div class="col-sm-6">

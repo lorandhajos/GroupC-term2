@@ -3,10 +3,10 @@
 
   // check if the user is already logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: index.php");
+    header("location: /index");
   }
 
-  include_once('config.php');
+  include_once('pages/config.php');
 
   // check whether the form has been submitted
   if (isset($_POST["submit"])) {
@@ -19,7 +19,7 @@
       $stmt->bindValue(':user_id', $_SESSION["user_id"]);
       $stmt->bindValue(':event_id', $_POST["event_id"]);
       $stmt->execute();
-      header("location: /home.php");
+      header("location: /home");
     } catch (Exception $e) {
       echo $e;
     }
