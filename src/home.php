@@ -3,7 +3,7 @@
 
   // check if the user is already logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: index.php");
+    header("location: /");
   }
 
   // include database connection
@@ -64,7 +64,7 @@
                                 <p class='form-control mb-0'>$eventDate</p>
                               </div>
                             </div>
-                            <form action='home.php' method='post' enctype='multipart/form-data'>
+                            <form action='home' method='post' enctype='multipart/form-data'>
                               <input type='file' name='fileToUpload' id='fileToUpload' multiple>
                               <input type='submit' value='Upload' name='submit' class='btn btn-primary'>
                               <input type='hidden' name='eventId' value='$eventId'>
@@ -173,11 +173,11 @@
                                 <p class='form-control mb-0'>$eventDate</p>
                               </div>
                             </div>
-                          <form action='pages/claimEvents.php' method='POST'>
+                          <form action='claimEvents' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                           </form>
-                        </div>" . ($_SESSION["speciality"]=="editor" ? "<a href='editEvent.php?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>" : "") . "
+                        </div>" . ($_SESSION["speciality"]=="editor" ? "<a href='editEvent?edit=$eventId' class='btn btn-primary mt-2' role='button'>Edit</a>" : "") . "
                       </div>
                     </div>
                   </div>

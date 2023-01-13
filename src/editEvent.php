@@ -2,11 +2,11 @@
   session_start();
 
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: index.php");
+    header("location: /");
   }
 
   if ($_SESSION["speciality"] != "editor") {
-    header("location: index.php");
+    header("location: /");
   }
 
   include_once("pages/config.php");
@@ -15,7 +15,7 @@
     if (is_numeric($_GET['edit'])) {
       $id = $_GET['edit'];
     } else {
-      header("Location: home.php");
+      header("Location: /home");
     }
   }
 
@@ -43,7 +43,7 @@
     $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
     $stmt->execute();
 
-    header("Location: home.php");
+    header("Location: /home");
   }
 ?>
 

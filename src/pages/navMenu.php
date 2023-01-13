@@ -14,10 +14,10 @@
       <div class="brandlink"></div>
       <ul class="nav nav-pills flex-column mx-2 my-1">
         <li class="nav-item">
-          <a href="home.php" class="nav-link">Events</a>
+          <a href="home" class="nav-link">Events</a>
         </li>
         <li class="nav-item">
-          <a href="newEvent.php" class="nav-link">Create event</a>
+          <a href="newEvent" class="nav-link">Create event</a>
         </li>
         <?php
           if ($_SESSION["speciality"] == "editor") {

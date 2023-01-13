@@ -3,7 +3,7 @@
 
   // check if the user is already logged in
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: home.php");
+    header("location: /home");
     exit();
   }
 
@@ -43,7 +43,7 @@
             $_SESSION['loggedin'] = true;
             
             // redirect to home page
-            header("location: home.php");
+            header("location: /home");
           } else {
             $error = "Invalid email or password";
           }
@@ -86,7 +86,7 @@
         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
         <label for="floatingPassword">Password</label>
       </div>
-      <a href="forgotPassword.php" class="d-block mt-3 text-start fw-normal">Forgot password?</a>
+      <a href="forgotPassword" class="d-block mt-3 text-start fw-normal">Forgot password?</a>
       <button type="submit" name="submit" class="mt-3 w-100 btn btn-lg btn-primary">Sign in</button>
       <p class="mt-5 mb-3 text-muted">© IT1C 2022</p>
     </form>

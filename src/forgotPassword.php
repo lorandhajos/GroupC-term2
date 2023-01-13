@@ -3,7 +3,7 @@
 
   // check if the user is already logged in
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: home.php");
+    header("location: /home");
     exit();
   }
 ?>
@@ -17,7 +17,7 @@
 </head>
 <body class="text-center">
   <main class="form-signin w-100 m-auto">
-    <form method="POST" action="sendEmail.php">
+    <form method="POST" action="sendEmail">
       <div class="mb-4 d-flex justify-content-center align-items-center">
         <img src="images/bootstrap-logo.svg" alt="Gemorskos logo" width="72" height="57">
         <h2>emorskos</h2>
