@@ -173,7 +173,7 @@
                                 <p class='form-control mb-0'>$eventDate</p>
                               </div>
                             </div>
-                          <form action='pages/claimEvents.php' method='POST'>
+                          <form action='claimEvents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                           </form>
