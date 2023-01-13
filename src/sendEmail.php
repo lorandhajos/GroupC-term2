@@ -9,9 +9,17 @@
 
   session_start();
 
-  // exit if the user is not logged in
-  if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    exit();
+  // include database connection
+  include_once('pages/config.php');
+
+  function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
   }
 
   // check if the user has submitted the form
@@ -23,6 +31,9 @@
       // Initialize Mailer, passing `true` enables exceptions
       $mail = new PHPMailer(false);
 
+      // Generate random password
+      $tempPassword = generateRandomString();
+
       try {
         $mail->isSMTP();
         $mail->Host = "smtp.gmail.com";
@@ -33,15 +44,23 @@
         $mail->Port = 465;
 
         $mail->setFrom($_ENV["MAILER_SENDER"], "IT1C Gemorskos");
-        $mail->addAddress($_SESSION["email"]);
+        $mail->addAddress($email);
 
         $mail->isHTML(true);
         $mail->Subject = "Password reset";
-        $mail->Body = "Here is your password reset link: <b>link</b>";
-        $mail->AltBody = "Here is your password reset link: link";
+        $mail->Body = "Here is your new temporary password: <b>$tempPassword</b>. Please change it!";
+        $mail->AltBody = "Here is your new temporary password: $tempPassword. Please change it!";
 
         $mail->send();
         echo "Message has been sent!";
+
+        $hashedPassword = password_hash($tempPassword, PASSWORD_BCRYPT);
+
+        // Update password in database
+        $stmt = $conn->prepare("UPDATE Users SET password=:hashedPassword WHERE email=:email");
+        $stmt->bindParam(':hashedPassword', $hashedPassword);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
       } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
       }
