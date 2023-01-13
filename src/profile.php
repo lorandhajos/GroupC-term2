@@ -51,17 +51,17 @@
           <div><br>
 		  
 	        <?php
-		      echo "<strong>Name:</strong>";
+		      echo "<h1 style='font-size: 1.3rem;'><strong>Name:</strong></h1>";
 	          echo "<input style='width:42.6vw;'  type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
-              echo "<strong>Email:</strong>";
+              echo "<h1 style='font-size: 1.3rem;'><strong>Email:</strong></h1>";
 		      echo "<input style='width:42.6vw;' type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
-		      echo "<strong>Specialty:</strong>";
+		      echo "<h1 style='font-size: 1.3rem;'><strong>Specialty:</strong></h1>";
 		      echo "<input style='width:42.6vw;' type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
 	        ?>
 	      </div><br>
           <hr class="my-4">
 	      <div>
-	        <p style="font-size: 2rem;"><strong>Change Password</strong></p><br>
+	        <p style="font-size: 1.3rem;"><strong>Change Password</strong></p><br>
 	          <form action="profile.php" method="POST">
 	            <div class="col-sm-6">
                   <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
