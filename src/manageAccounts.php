@@ -47,50 +47,53 @@
       <div class="col p-0 d-flex flex-column justify-content-between">
         <div>
           <header class="headerheight shadow-sm"></header>
-          <form action="manageAccounts.php" method="POST">
-            <?php
-              try {
-                $sql = "SELECT * FROM Users;";
-                $stmt=$conn->prepare($sql);
-                $stmt->execute();
-              } catch (PDOexception $e) {
-                echo $e . "<br>";
-              }
-              echo '
-              <table class="table table-striped">
-                <thead>
+          <div class="mx-5">
+            <h2 class="my-4">Manage Accounts</h2>
+            <form action="manageAccounts.php" method="POST">
+              <?php
+                try {
+                  $sql = "SELECT * FROM Users;";
+                  $stmt=$conn->prepare($sql);
+                  $stmt->execute();
+                } catch (PDOexception $e) {
+                  echo $e . "<br>";
+                }
+                echo '
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Speciality</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>';
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  $userID = $row["user_id"];
+                  $name = $row["name"];
+                  $email = $row["email"];
+                  $password = $row["password"];
+                  $speciality = $row["speciality"];
+                  echo "
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Speciality</th>
-                    <th scope="col">Delete</th>
+                    <th scope='row'>$name</th>
+                    <td>$email</td>
+                    <td>$speciality</td>
+                    <td><button class='btn btn-danger' name='submit' type='submit' value='$userID'>Delete</button></td>
                   </tr>
-                </thead>
-                <tbody>';
-              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $userID = $row["user_id"];
-                $name = $row["name"];
-                $email = $row["email"];
-                $password = $row["password"];
-                $speciality = $row["speciality"];
-                echo "
-                <tr>
-                  <th scope='row'>$name</th>
-                  <td>$email</td>
-                  <td>$speciality</td>
-                  <td><button class='btn btn-danger' name='submit' type='submit' value='$userID'>Delete</button></td>
-                </tr>
-               ";
-              }
-              echo '
-                </tbody>
-              </table>';
-            ?>
-          </form>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
-            <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-          </footer>
+                ";
+                }
+                echo '
+                  </tbody>
+                </table>';
+              ?>
+            </form>
+          </div>
         </div>
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
       </div>
     </div>
   </main>
