@@ -2,11 +2,11 @@
   session_start();
 
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: /index");
+    header("location: /");
   }
 
   if ($_SESSION["speciality"] != "editor") {
-    header("location: /index");
+    header("location: /");
   }
 
   include_once("pages/config.php");
