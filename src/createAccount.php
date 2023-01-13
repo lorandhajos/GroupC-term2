@@ -96,6 +96,7 @@
                 <div class="col-md-6">
                   <label for="accountType" class="form-label">Account Type</label>
                   <select class="form-select" name="accountType">
+                    <option value=""></option>
                     <option value="journalist">Journalist</option>
                     <option value="photographer">Photographer</option>
                     <option value="editor">Editor</option>
