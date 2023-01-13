@@ -68,8 +68,8 @@
 
                     if ($result = $test->fetch(PDO::FETCH_OBJ)) {
                       $curr_pass = filter_input(INPUT_POST, "currentPassword");
-                      $new_pass= filter_input(INPUT_POST, "newPassword");
-                      $confirm_pass= filter_input(INPUT_POST, "confirmPassword");
+                      $new_pass = filter_input(INPUT_POST, "newPassword");
+                      $confirm_pass = filter_input(INPUT_POST, "confirmPassword");
 
                       if($new_pass == $confirm_pass) {
                         if (password_verify($curr_pass, $result->password)) {
