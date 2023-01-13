@@ -7,6 +7,10 @@
   header {
     display: none !important;
   }
+
+  main > div {
+    height: 100vh !important;
+  }
 }
 
 .sidebar {

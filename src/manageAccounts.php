@@ -49,7 +49,7 @@
           <header class="headerheight shadow-sm"></header>
           <div class="container">
             <h2 class="my-4">Manage Accounts</h2>
-            <form action="manageAccounts" method="POST">
+            <form class="table-responsive" action="manageAccounts" method="POST">
               <?php
                 try {
                   $sql = "SELECT * FROM Users;";
