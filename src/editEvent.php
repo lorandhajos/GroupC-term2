@@ -101,7 +101,7 @@
                     <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
                   </div>
                 </div>
-                <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit">Change Event</button>
+                <p><button class="w-auto mt-3 btn btn-primary btn-lg" type="submit">Change Event</button></p>
               </div>
             </form>
           </div>
