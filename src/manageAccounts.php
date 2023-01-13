@@ -47,7 +47,7 @@
       <div class="col p-0 d-flex flex-column justify-content-between">
         <div>
           <header class="headerheight shadow-sm"></header>
-          <div class="mx-5">
+          <div class="container">
             <h2 class="my-4">Manage Accounts</h2>
             <form action="manageAccounts.php" method="POST">
               <?php
