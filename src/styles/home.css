@@ -1,3 +1,18 @@
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    height: auto !important;
+    width: 100vw !important;
+  }
+
+  header {
+    display: none !important;
+  }
+
+  main > div {
+    height: 100vh !important;
+  }
+}
+
 .sidebar {
   position: sticky;
   width: 240px;
@@ -22,3 +37,6 @@
   height: 77px;
 }
 
+.calendarWidth {
+  width: 150px;
+}

@@ -64,7 +64,7 @@
       <div class="col p-0 d-flex flex-column justify-content-between">
         <div>
           <header class="headerheight shadow-sm"></header>
-          <div class="mx-5">
+          <div class="container">
             <form class="needs-validation" novalidate method="POST" action="">
               <h2 class="my-4">Event Details</h2>
               <div class="row g-3">

@@ -3,12 +3,12 @@
 
   // check if the user is logged in
   if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../index.php");
+    header("location: /");
   }
 
   //only the editors should access this page, all others get redirected towards index.php
   if ($_SESSION["speciality"] != "editor") {
-    header("location: index.php");
+    header("location: /");
   }
 
   // get env variables and database connection from config.php
@@ -73,8 +73,8 @@
       <div class="col p-0 d-flex flex-column justify-content-between">
         <div>
           <header class="headerheight shadow-sm"></header>
-          <div class="mx-5">
-            <form class="needs-validation" novalidate method="POST" action="createAccount.php">
+          <div class="container">
+            <form class="needs-validation" novalidate method="POST" action="createAccount">
               <h2 class="my-4">Create Account</h2>
               <div class="row g-3">
                 <div class="col-sm-6">
