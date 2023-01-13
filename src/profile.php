@@ -51,26 +51,16 @@
           <div><br>
 		  
 	        <?php
-<<<<<<< HEAD
 		      	echo "<h1 class='mt-1' style='font-size: 1.3rem;'><strong>Name:</strong></h1>";
 	          echo "<input style='width:42vw;'  type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
             echo "<h1 class='mt-1' style='font-size: 1.3rem;'><strong>Email:</strong></h1>";
 		      	echo "<input style='width:42vw;' type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
 		      	echo "<h1 class='mt-1' style='font-size: 1.3rem;'><strong>Specialty:</strong></h1>";
 		      	echo "<input style='width:42vw;' type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
-=======
-		      echo "<h1 style='font-size: 1.3rem;'><strong>Name:</strong></h1>";
-	          echo "<input style='width:42.1vw;'  type='text' class='form-control' value='" . $_SESSION['name'] . "'  disabled>";
-              echo "<h1 style='font-size: 1.3rem;'><strong>Email:</strong></h1>";
-		      echo "<input style='width:42.1vw;' type='text' class='form-control' value='" . $_SESSION['email'] . "' disabled>";
-		      echo "<h1 style='font-size: 1.3rem;'><strong>Specialty:</strong></h1>";
-		      echo "<input style='width:42.1vw;' type='text' class='form-control' value='" . $_SESSION['speciality'] . "' disabled>";
->>>>>>> b3bb8553d43d088812ed6cbdddcba6c5fd15ebf5
 	        ?>
 
 	      	</div><br>
           <hr class="my-4">
-<<<<<<< HEAD
 					<div>
 						<p style="font-size: 1.3rem;"><strong>Change Password</strong></p><br>
 							<form action="profile.php" method="POST">
@@ -86,23 +76,6 @@
 								<button class="btn btn-primary" type="submit">Submit</button>
 							</form>
 					</div>
-=======
-	      <div>
-	        <p style="font-size: 1.3rem;"><strong>Change Password</strong></p><br>
-	          <form action="profile.php" method="POST">
-	            <div class="col-sm-6">
-                  <input type="password" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
-	            </div>
-	            <div class="col-sm-6">
-		          <input type="password" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
-	            </div>
-	            <div class="col-sm-6">
-		          <input type="password" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
-	            </div>
-	            <button class="btn btn-primary" type="submit">Submit</button>
-	          </form>
-	      </div>
->>>>>>> b3bb8553d43d088812ed6cbdddcba6c5fd15ebf5
         </div>
 	    <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar p-0">
         <p class="mb-0 me-4">Copyright © 2022- Gemorskos. All rights reserved</p>
