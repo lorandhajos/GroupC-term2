@@ -150,7 +150,9 @@
                     }
                   ?>
                 </div>
-                <p><button class="w-auto mt-3 btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Event</button></p>
+                <div class="col-md-6">
+                  <button class="w-auto btn btn-primary btn-lg" type="submit" name="submit" value="submit">Create Event</button>
+                </div>
                 <?php
                   if (isset($_POST["submit"]) && !$err) {
                     echo '
