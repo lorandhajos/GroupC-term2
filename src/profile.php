@@ -13,8 +13,7 @@
 	  $confirm_pass= filter_input(INPUT_POST, "confirmPassword");
 	  if($new_pass==$confirm_pass){
 	   if (password_verify($curr_pass, $result->password)) {
-		   //ONLY DECOMMENT IF YOU ENCRYPTED PASSWORD
-		   //$new_pass_crypt=password_hash($new_pass, PASSWORD_BCRYPT);
+		   $new_pass_crypt=password_hash($new_pass, PASSWORD_BCRYPT);
 		   $query_change=$conn->prepare("UPDATE Users SET password=:new_pass WHERE email=:user_email AND name=:user_name");
 		   $query_change->bindParam(':new_pass', $new_pass_crypt);
 		   $query_change->bindParam(':user_email', $_SESSION['email']);
@@ -22,7 +21,7 @@
 		   $query_change->execute();
 		   echo"Password changed successfully";
 	   } else {
-         echo "no";
+         echo "Error";
 	    }
 	  } else {
 		  echo"<h5>Passwords not matching</h5>";
@@ -65,13 +64,13 @@
 	        <p style="font-size: 2rem;"><strong>Change Password</strong></p><br>
 	          <form action="profile.php" method="POST">
 	            <div class="col-sm-6">
-                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
+                  <input type="text" name="currentPassword" class="form-control" id="CurrentPassword" placeholder="Current Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
+		          <input type="text" name="newPassword" class="form-control" id="NewPassword" placeholder="New Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 	            </div>
 	            <div class="col-sm-6">
-		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 5px gray;"><br>
+		          <input type="text" name="confirmPassword" class="form-control" id="ConfirmPassword" placeholder="Confirm Password..." value="" style="box-shadow: inset 0 0 3px gray;"><br>
 	            </div>
 	            <button class="btn btn-primary" type="submit">Submit</button>
 	          </form>
