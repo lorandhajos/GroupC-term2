@@ -67,3 +67,14 @@
     }
   }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <?php include "pages/head.php" ?>
+  <script src="scripts/redirect.js"></script>
+  <title>Password Reset</title>
+</head>
+<body>
+  
+</body>
+</html>
