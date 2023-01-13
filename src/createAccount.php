@@ -119,10 +119,10 @@
               </div>
             </form>
           </div>
-          <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
-            <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
-          </footer>
         </div>
+        <footer class="py-3 mt-5 d-flex justify-content-end shadow border-top navbar ">
+          <p class="mb-0 me-4">Copyright 2022 - Gemorskos. All rights reserved</p>
+        </footer>
       </div>
     </div>
   </main>
