@@ -19,6 +19,17 @@
         <li class="nav-item">
           <a href="newEvent.php" class="nav-link">Create event</a>
         </li>
+        <?php
+          if ($_SESSION["speciality"] == "editor") {
+            echo '
+            <li class="nav-item">
+              <a href="manageAccounts.php" class="nav-link">Manage accounts</a>
+            </li>
+            <li class="nav-item">
+              <a href="createAccount.php" class="nav-link">Create account</a>
+            </li>'; 
+          }
+        ?>
       </ul>
     </div>
   </div>
