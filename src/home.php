@@ -29,13 +29,11 @@
           <header class="headerheight shadow-sm"></header>
           <div class="container">
             <?php
-              if ($_SESSION["speciality"]=="journalist" || $_SESSION["speciality"]=="photographer") {
+              if ($_SESSION["speciality"] !== "editor") {
                 echo "<h2 class='my-4'>Your Events</h2>";
-              }
-            ?>
-            <div class="accordion" id="accordionExample1">
-              <?php
-                $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
+                echo "<div class='accordion' id='accordionExample1'>";
+
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE Events.journalist_id = :id OR Events.photographer_id = :id");
                 $stmt->bindValue("id", $_SESSION["user_id"]);
                 $stmt->execute();
 
@@ -139,12 +137,13 @@
                     }
                   }
                 }
-              ?>
-            </div>
+                echo "</div>";
+              }
+            ?>
             <h2 class="mt-4 mb-4">Unclaimed Events</h2>
             <div class="accordion" id="accordionExample2">
               <?php
-                $stmt = $conn->prepare("SELECT * FROM Events WHERE NOT EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE Events.journalist_id IS NULL AND Events.photographer_id IS NULL");
                 $stmt->bindColumn("event_id", $eventId);
                 $stmt->bindColumn("name", $eventName);
                 $stmt->bindColumn("description", $description);
@@ -194,7 +193,7 @@
             <h2 class="mt-4 mb-4">Claimed Events</h2>
             <div class="accordion" id="accordionExample3">
               <?php
-                $stmt = $conn->prepare("SELECT * FROM Events WHERE EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE Events.journalist_id IS NOT NULL OR Events.photographer_id IS NOT NULL");
                 $stmt->bindColumn("event_id", $eventId);
                 $stmt->bindColumn("name", $eventName);
                 $stmt->bindColumn("description", $description);
