@@ -28,13 +28,25 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="mx-5">
-            <h2 class="my-4">Your Events</h2>
-            <div class="accordion" id="accordionExample1">
-              <?php
-                $stmt = $conn->prepare("SELECT * FROM Claims INNER JOIN Users ON Claims.user_id = Users.user_id INNER JOIN Events ON Claims.event_id = Events.event_id WHERE Users.user_id = :id");
-                $stmt->bindValue("id", $_SESSION["user_id"]);
+            <?php
+              $targetColumn = "";
+              if ($_SESSION["speciality"] === "journalist") {
+                $targetColumn = "journalist_id";
+              } elseif ($_SESSION["speciality"] === "photographer") {
+                $targetColumn = "photographer_id";
+              }
+              if (!$targetColumn) {
+                $unclaimedSQL = "SELECT * FROM Events WHERE (photographer_id = $claimVacant OR photographer_id = $claimRestricted) AND (journalist_id = $claimVacant OR journalist_id = $claimRestricted);";
+                $claimedSQL = "SELECT * FROM Events WHERE (photographer_id <> $claimVacant AND photographer_id <> $claimRestricted) OR (journalist_id <> $claimVacant AND journalist_id <> $claimRestricted);";
+              } else {
+                $unclaimedSQL = "SELECT * FROM Events WHERE $targetColumn = $claimVacant";
+                $claimedSQL = "SELECT * FROM Events WHERE NOT $targetColumn = $claimVacant AND NOT $targetColumn = $claimRestricted;";
+                echo '
+                  <h2 class="my-4">Your Events</h2>
+                  <div class="accordion" id="accordionExample1">';
+                $stmt = $conn->prepare("SELECT * FROM Events WHERE $targetColumn = :user_id;");
+                $stmt->bindValue("user_id", $_SESSION['user_id']);
                 $stmt->execute();
-
                 $yourEventId = 0;
                 while ($results = $stmt->fetch()) {
                   $eventName = $results["name"];
@@ -44,38 +56,37 @@
                   $eventDate = $results["event_date"];
 
                   echo "
-                  <div class='accordion-item'>
-                    <h2 class='accordion-header' id='headingYourEvent$yourEventId'>
-                      <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseYourEvent$yourEventId' aria-expanded='true' aria-controls='collapseYourEvent$yourEventId'>
+                    <div class='accordion-item'>
+                      <h2 class='accordion-header' id='headingYourEvent$yourEventId'>
+                        <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseYourEvent$yourEventId' aria-expanded='true' aria-controls='collapseYourEvent$yourEventId'>
                       $eventName #$eventId
-                      </button>
-                    </h2>
-                    <div id='collapseYourEvent$yourEventId' class='accordion-collapse collapse' aria-labelledby='headingYourEvent$yourEventId' data-bs-parent='#accordionExample1'>
-                      <div class='accordion-body'>
-                        <p>$description</p>
-                          <div class='d-flex justify-content-between'>
-                            <div class='d-flex'>
-                              <div class='input-group flex-nowrap me-2'>
-                                  <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-plus'></i></span>
-                                  <p class='form-control mb-0'>$creationDate</p>
+                        </button>
+                      </h2>
+                      <div id='collapseYourEvent$yourEventId' class='accordion-collapse collapse' aria-labelledby='headingYourEvent$yourEventId' data-bs-parent='#accordionExample1'>
+                        <div class='accordion-body'>
+                          <p>$description</p>
+                            <div class='d-flex justify-content-between'>
+                              <div class='d-flex'>
+                                <div class='input-group flex-nowrap me-2'>
+                                    <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-plus'></i></span>
+                                    <p class='form-control mb-0'>$creationDate</p>
+                                </div>
+                                <div class='input-group flex-nowrap'>
+                                  <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-days'></i></span>
+                                  <p class='form-control mb-0'>$eventDate</p>
+                                </div>
                               </div>
-                              <div class='input-group flex-nowrap'>
-                                <span class='input-group-text' id='addon-wrapping'><i class='fa-regular fa-calendar-days'></i></span>
-                                <p class='form-control mb-0'>$eventDate</p>
-                              </div>
-                            </div>
-                            <form action='home' method='post' enctype='multipart/form-data'>
-                              <input type='file' name='fileToUpload' id='fileToUpload' multiple>
-                              <input type='submit' value='Upload' name='submit' class='btn btn-primary'>
-                              <input type='hidden' name='eventId' value='$eventId'>
-                            </form>
+                              <form action='home' method='post' enctype='multipart/form-data'>
+                                <input type='file' name='fileToUpload' id='fileToUpload' multiple>
+                                <input type='submit' value='Upload' name='submit' class='btn btn-primary'>
+                                <input type='hidden' name='eventId' value='$eventId'>
+                              </form>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>";
+                    </div>";
                   $yourEventId ++;
                 } 
-
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   $eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
                   $target_dir = 'uploads/' . $eventId . '/';
@@ -135,12 +146,13 @@
                     }
                   }
                 }
-              ?>
-            </div>
+                //echo '</div>';
+              }
+            ?>
             <h2 class="mt-4 mb-4">Unclaimed Events</h2>
             <div class="accordion" id="accordionExample2">
               <?php
-                $stmt = $conn->prepare("SELECT * FROM Events WHERE NOT EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt = $conn->prepare($unclaimedSQL);
                 $stmt->bindColumn("event_id", $eventId);
                 $stmt->bindColumn("name", $eventName);
                 $stmt->bindColumn("description", $description);
@@ -173,7 +185,7 @@
                                 <p class='form-control mb-0'>$eventDate</p>
                               </div>
                             </div>
-                          <form action='claimEvents' method='POST'>
+                          <form action='claimevents.php' method='POST'>
                             <input type='hidden' name='event_id' value='$eventId'>
                             <input type='submit' name='submit' class='btn btn-primary' value='Claim Event'>
                           </form>
@@ -189,7 +201,7 @@
             <h2 class="mt-4 mb-4">Claimed Events</h2>
             <div class="accordion" id="accordionExample3">
               <?php
-                $stmt = $conn->prepare("SELECT * FROM Events WHERE EXISTS (SELECT * FROM Claims WHERE Events.event_id = Claims.event_id)");
+                $stmt = $conn->prepare($claimedSQL);
                 $stmt->bindColumn("event_id", $eventId);
                 $stmt->bindColumn("name", $eventName);
                 $stmt->bindColumn("description", $description);
