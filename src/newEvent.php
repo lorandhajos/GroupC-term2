@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-12">
                   <label for="eventDesc" class="form-label">Details</label>
-                  <textarea class="form-control" name="eventDesc" rows="5"> </textarea>
+                  <textarea class="form-control" name="eventDesc" rows="5"></textarea>
                 </div>
                 <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
