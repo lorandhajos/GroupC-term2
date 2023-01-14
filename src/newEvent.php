@@ -88,7 +88,7 @@
         <div>
           <header class="headerheight shadow-sm"></header>
           <div class="container">
-            <form class="needs-validation" novalidate method="POST" action="newEvent.php">
+            <form class="needs-validation" novalidate method="POST" action="newEvent">
               <h2 class="my-4">Event Details</h2>
               <div class="row g-3">
                 <div class="col-sm-6">

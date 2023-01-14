@@ -29,21 +29,53 @@
   $stmt->bindColumn("event_date", $eventDate);
 
   $stmt->fetch();
+  $err = "";
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $editedName = filter_input(INPUT_POST, "eventName", FILTER_SANITIZE_SPECIAL_CHARS);
     $editedDate = filter_input(INPUT_POST, "eventDate", FILTER_SANITIZE_NUMBER_INT);
     $editedDescription = filter_input(INPUT_POST, "description", FILTER_SANITIZE_SPECIAL_CHARS);
+    $editedCategory = filter_input(INPUT_POST, "eventCategory", FILTER_SANITIZE_SPECIAL_CHARS);
+    $reqJournalists = filter_input(INPUT_POST, "reqJournalists", FILTER_SANITIZE_SPECIAL_CHARS);
+    $reqPhotographers = filter_input(INPUT_POST, "reqPhotographers", FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, event_date=:editedDate WHERE event_id=:id");
+    if (empty($editedName)) {
+      $err = "Please enter a title for the event";
+    } elseif (empty($editedDate)) {
+      $err = "Please provide the date for the event";
+    } elseif (empty($editedDescription)) {
+      $err = "Please provide a short event description";
+    } elseif (empty($editedCategory)) {
+      $err = "Please provide an event category";
+    } elseif (!($reqJournalists || $reqPhotographers)) {
+      $err = "Either the journalists or the photographers should be able to claim the event";
+    }
+    if (!$err) {
+      $journalistClaim = $_SESSION['speciality'] === "journalist" ? $_SESSION["user_id"] : null;
+      $photographerClaim = $_SESSION['speciality'] === "photographer" ? $_SESSION["user_id"] : null;
 
-    $stmt->bindParam("id", $id, PDO::PARAM_INT);
-    $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
-    $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
-    $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
-    $stmt->execute();
+      if ($reqPhotographers && $reqJournalists) {
+        $claim = claimType::ALL->value;
+      } elseif ($reqJournalists) {
+        $claim = claimType::JOURNALIST->value;
+      } else {
+        $claim = claimType::PHOTOGRAPHER->value;
+      }
 
-    header("Location: /home");
+      $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, `event_date`=:editedDate, `event_category`=:category, `claim_type`=:claim, `journalist_id`=:journalist_claim, `photographer_id`=:photographer_claim WHERE event_id=:id;");
+
+      $stmt->bindParam("id", $id, PDO::PARAM_INT);
+      $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
+      $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
+      $stmt->bindParam("category", $editedCategory, PDO::PARAM_STR);
+      $stmt->bindValue("journalist_claim", $journalistClaim, PDO::PARAM_INT);
+      $stmt->bindValue("photographer_claim", $photographerClaim, PDO::PARAM_INT);
+      $stmt->bindValue("claim", $claim, PDO::PARAM_INT);
+      $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
+      $stmt->execute();
+
+      header("Location: /home");
+    }
   }
 ?>
 
@@ -82,7 +114,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
-                  <select class="form-select" id="eventCategory" required>
+                  <select class="form-select" name="eventCategory" required>
                     <option value=""></option>
                     <option value="sports">Sports</option>
                     <option value="politics">Politics</option>
@@ -93,17 +125,22 @@
                 <div class="col-md-6">
                   <label>Claims</label>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="reqJournalists">
+                    <input type="checkbox" class="form-check-input" name="reqJournalists">
                     <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="reqPhotographers">
+                    <input type="checkbox" class="form-check-input" name="reqPhotographers">
                     <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <button class="w-auto btn btn-primary btn-lg" type="submit">Change Event</button>
                 </div>
+                <?php
+                  if ($err) {
+                    echo '<div class="alert alert-danger">' . $err . '</div>';
+                  }
+                ?>
               </div>
             </form>
           </div>
