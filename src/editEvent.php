@@ -29,21 +29,44 @@
   $stmt->bindColumn("event_date", $eventDate);
 
   $stmt->fetch();
+  $err = "";
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $editedName = filter_input(INPUT_POST, "eventName", FILTER_SANITIZE_SPECIAL_CHARS);
     $editedDate = filter_input(INPUT_POST, "eventDate", FILTER_SANITIZE_NUMBER_INT);
     $editedDescription = filter_input(INPUT_POST, "description", FILTER_SANITIZE_SPECIAL_CHARS);
+    $editedCategory = filter_input(INPUT_POST, "eventCategory", FILTER_SANITIZE_SPECIAL_CHARS);
+    $reqJournalists = filter_input(INPUT_POST, "reqJournalists", FILTER_SANITIZE_SPECIAL_CHARS);
+    $reqPhotographers = filter_input(INPUT_POST, "reqPhotographers", FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, event_date=:editedDate WHERE event_id=:id");
+    if (empty($editedName)) {
+      $err = "Please enter a title for the event";
+    } elseif (empty($editedDate)) {
+      $err = "Please provide the date for the event";
+    } elseif (empty($editedDescription)) {
+      $err = "Please provide a short event description";
+    } elseif (empty($editedCategory)) {
+      $err = "Please provide an event category";
+    } elseif (!($reqJournalists || $reqPhotographers)) {
+      $err = "Either the journalists or the photographers should be able to claim the event";
+    }
+    if (!$err) {
+      $photographerClaim = $reqPhotographers ? $claimVacant : $claimRestricted;
+      $journalistClaim = $reqJournalists ? $claimVacant : $claimRestricted;
 
-    $stmt->bindParam("id", $id, PDO::PARAM_INT);
-    $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
-    $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
-    $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
-    $stmt->execute();
+      $stmt = $conn->prepare("UPDATE Events SET `name`=:editedName, `description`=:editedDescription, `event_date`=:editedDate, `event_category`=:category, `journalist_id`=:journalist_claim, `photographer_id`=:photographer_claim WHERE event_id=:id;");
 
-    header("Location: /home");
+      $stmt->bindParam("id", $id, PDO::PARAM_INT);
+      $stmt->bindParam("editedName", $editedName, PDO::PARAM_STR);
+      $stmt->bindParam("editedDate", $editedDate, PDO::PARAM_STR);
+      $stmt->bindParam("category", $editedCategory, PDO::PARAM_STR);
+      $stmt->bindValue("journalist_claim", $journalistClaim, PDO::PARAM_INT);
+      $stmt->bindValue("photographer_claim", $photographerClaim, PDO::PARAM_INT);
+      $stmt->bindParam("editedDescription", $editedDescription, PDO::PARAM_STR);
+      $stmt->execute();
+
+      header("Location: /home");
+    }
   }
 ?>
 
@@ -70,11 +93,11 @@
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="eventTitle" class="form-label">Event Title</label>
-                  <input type="text" class="form-control" name="eventName" id="eventTitle" value="<?php echo $eventName; ?>" required>
+                  <input type="text" class="form-control" name="eventName" id="eventTitle" value="<?php echo $eventName; ?>">
                 </div>
                 <div class="col-sm-6">
                   <label for="eventDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" name="eventDate" id="eventDate" value="<?php echo $eventDate; ?>" required>
+                  <input type="date" class="form-control" name="eventDate" id="eventDate" value="<?php echo $eventDate; ?>">
                 </div>
                 <div class="col-12">
                   <label for="eventDesc" class="form-label">Details</label>
@@ -82,8 +105,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="eventCategory" class="form-label">Event Category</label>
-                  <select class="form-select" id="eventCategory" required>
-                    <option value=""></option>
+                  <select class="form-select" name="eventCategory">
                     <option value="sports">Sports</option>
                     <option value="politics">Politics</option>
                     <option value="disasters">Disasters</option>
@@ -93,15 +115,20 @@
                 <div class="col-md-6">
                   <label>Claims</label>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="reqJournalists">
+                    <input type="checkbox" class="form-check-input" name="reqJournalists" value="y">
                     <label class="form-check-label" for="reqJournalists">Allow journalists to claim the event</label>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="reqPhotographers">
+                    <input type="checkbox" class="form-check-input" name="reqPhotographers" value="y">
                     <label class="form-check-label" for="reqPhotographers">Allow photographers to claim the event</label>
                   </div>
                 </div>
-                <button class="w-auto mt-3 btn btn-primary btn-lg" type="submit">Change Event</button>
+                <button class="w-auto mt-3 btn btn-primary btn-lg" name="submit" type="submit">Change Event</button>
+                <?php
+                  if (isset($_POST["submit"]) && $err) {
+                    echo '<div class="alert alert-danger">' . $err . '</div>';
+                  }
+                ?>
               </div>
             </form>
           </div>
